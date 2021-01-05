@@ -13,7 +13,8 @@ sub new {
         port => $_port,
         login => $_login,
         database => $_database,
-        clientEncoding => $_clientEncoding
+        clientEncoding => $_clientEncoding,
+        password => undef
     };
 
     bless($this,$class);
@@ -21,28 +22,37 @@ sub new {
 }
 
 sub getHost {
-    my($this) = @_;
+    my ($this) = @_;
     return $this->{host};
 }
 
 sub getPort {
-    my($this) = @_;
+    my ($this) = @_;
     return $this->{port};  
 }
 
 sub getLogin {
-    my($this) = @_;
+    my ($this) = @_;
     return $this->{login};  
 }
 
 sub getDatabase {
-    my($this) = @_;
+    my ($this) = @_;
     return $this->{database};  
 }
 
 sub getClientEncoding {
-    my($this) = @_;
+    my ($this) = @_;
     return $this->{clientEncoding};  
 }
 
+sub setPassword {
+    my ($this,$_password) = @_;
+    $this->{password} = $_password;
+}
+
+sub getPassword {
+    my ($this) = @_;
+    return $this->{password};  
+}
 1;

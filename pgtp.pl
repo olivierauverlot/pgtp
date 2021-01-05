@@ -15,28 +15,47 @@ use Pgtp::XMLParser;
 use constant VERSION => '0.1 Build 20210104-1';
 
 my $projectFileName;
+my $password;
+my $table;
+my $query;
 
 sub version {
     print "\n" . VERSION . "\n";
 }
 
+sub exitOnError {
+    my ($msg) = @_;
+    say $msg;
+    exit(0);
+}
+
 my $result = GetOptions(
-    'p|project=s' => \$projectFileName,
+    'f|from=s' => \$projectFileName,
+    'p|password=s' => \$password,
+    't|table=s' => \$table,
+    'q|query=s' => \$query,
     'v|version' => sub { version() },
 ) or die "Invalid options passed to $0\n";
 
-if(defined $projectFileName) {
+if(defined $projectFileName && defined $password) {
     if(-e $projectFileName) {
-        my $project = Model::Project->new();
-        my $parser = Pgtp::XMLParser->new($projectFileName,$project);
-        p( $project->getConnectionOptions());
+        if(defined $password) {
+            if(defined $table && defined $query) {
+                my $project = Model::Project->new();
+                my $parser = Pgtp::XMLParser->new($projectFileName,$project);
+                $project->getConnectionOptions()->setPassword($password);
+                p( $project->getConnectionOptions());
+            } else {
+                exitOnError "You must indicate table name and query name";
+            }
+        } else {
+            exitOnError "No database password";
+        }
     } else {
-        say "$projectFileName not found";
-        exit 0;
+        exitOnError "$projectFileName not found";
     }
 } else {
-    say "No project file";
-    exit 0;
+    exitOnError "No project file";
 }
 
 
