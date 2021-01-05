@@ -1,0 +1,1 @@
+carton exec perl pgtp.pl "-v -p test.pgtp"
