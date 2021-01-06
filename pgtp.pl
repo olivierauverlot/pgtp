@@ -30,6 +30,11 @@ sub exitOnError {
     exit(0);
 }
 
+# carton exec perl pgtp.pl "-v"
+# carton exec perl pgtp.pl "-f test.pgtp -p mypassword --mutation  -t public.personne -q sql_personnes"
+# carton exec perl pgtp.pl "--datasources -f test.pgtp -p mypassword"
+# carton exec perl pgtp.pl "--pages -f test.pgtp -p mypassword"
+
 my $result = GetOptions(
     'f|from=s' => \$projectFileName,
     'p|password=s' => \$password,
