@@ -15,6 +15,7 @@ use Pgtp::XMLParser;
 use constant VERSION => '0.1 Build 20210104-1';
 
 my $projectFileName;
+my $mutation;
 my $password;
 my $table;
 my $query;
@@ -35,18 +36,21 @@ my $result = GetOptions(
     't|table=s' => \$table,
     'q|query=s' => \$query,
     'v|version' => sub { version() },
+    'mutation' => \$mutation
 ) or die "Invalid options passed to $0\n";
 
-if(defined $projectFileName && defined $password) {
+if(defined $projectFileName) {
     if(-e $projectFileName) {
         if(defined $password) {
-            if(defined $table && defined $query) {
-                my $project = Model::Project->new();
-                my $parser = Pgtp::XMLParser->new($projectFileName,$project);
-                $project->getConnectionOptions()->setPassword($password);
-                p( $project->getConnectionOptions());
-            } else {
-                exitOnError "You must indicate table name and query name";
+            my $project = Model::Project->new();
+            my $parser = Pgtp::XMLParser->new($projectFileName,$project);
+            $project->getConnectionOptions()->setPassword($password);
+            p( $project->getConnectionOptions());
+            if($mutation) {
+                if(defined $table && defined $query) {
+                } else {
+                    exitOnError "You must indicate table name and query name";
+                }
             }
         } else {
             exitOnError "No database password";
@@ -57,7 +61,6 @@ if(defined $projectFileName && defined $password) {
 } else {
     exitOnError "No project file";
 }
-
 
 =pod
 my $driver  = "Pg"; 
