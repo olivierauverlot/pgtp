@@ -8,6 +8,7 @@ use lib "$FindBin::RealBin/.";
 use Getopt::Long;
 use Data::Printer;
 use DBI;
+use XML::LibXML;
 
 use Model::Project;
 use Pgtp::XMLParser;
@@ -48,7 +49,8 @@ if(defined $projectFileName) {
     if(-e $projectFileName) {
         if(defined $password) {
             my $project = Model::Project->new();
-            my $parser = Pgtp::XMLParser->new($projectFileName,$project);
+            my $dom = XML::LibXML->load_xml( location => $projectFileName );
+            my $parser = Pgtp::XMLParser->new($dom,$project);
             $project->getConnectionOptions()->setPassword($password);
             p( $project->getConnectionOptions());
             if($mutation) {

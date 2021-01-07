@@ -10,14 +10,13 @@ use XML::LibXML;
 use Model::ConnectionOptions;
 
 sub new {
-    my($class,$_xmlFileName,$_project) = @_;
+    my($class,$_dom,$_project) = @_;
     my $this = { 
-        fileName => $_xmlFileName,
         project => $_project,
         dom => undef
     };
     bless($this,$class);
-    $this->{dom} = XML::LibXML->load_xml( location => $this->{fileName} );
+    $this->{dom} = $_dom;
     $this->extractConnectionOptions();
     return $this;
 }
