@@ -163,9 +163,9 @@ HELP
 my $driver  = "Pg"; 
 
 my $database = "si_dev";
-my $dsn = "DBI:$driver:dbname = $database;host = pg96.priv.lifl.fr;port = 5432";
-my $userid = "silifl";
-my $password = "cplubd22";
+my $dsn = "DBI:$driver:dbname = $database;host = server.domain.org;port = 5432";
+my $userid = "username";
+my $password = "password";
 my $dbh = DBI->connect($dsn, $userid, $password, { RaiseError => 1 }) 
    or die $DBI::errstr;
 
