@@ -1,2 +1,3 @@
 # pgtp
-A refactoring tool for SQL Mastro PHP Generator
+
+A refactoring tool for SQL Mastro PHP Generator projects
