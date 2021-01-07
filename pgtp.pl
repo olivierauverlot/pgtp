@@ -9,6 +9,7 @@ use Getopt::Long;
 use Data::Printer;
 use DBI;
 use XML::LibXML;
+use Term::Table;
 
 use Model::Project;
 use Pgtp::XMLParser;
@@ -40,6 +41,7 @@ sub exitOnError {
 # carton exec perl pgtp.pl "--pages -f test.pgtp -p mypassword"
 
 my $result = GetOptions(
+    'h|help' => sub { help() },
     'f|from=s' => \$projectFileName,
     'p|password=s' => \$password,
     't|table=s' => \$table,
@@ -75,6 +77,53 @@ if(defined $projectFileName) {
     }
 } else {
     exitOnError "No project file";
+}
+
+sub help {
+    my $help = <<HELP;
+
+NAME:
+    pgtp - refactoring tool for SQL Maestro PHP Generator
+
+SYNOPSIS:
+    pgtp 
+
+DESCRIPTION:
+
+    Explore a PHP Generator project and refactor datasources
+
+    Options:
+
+            -f, --from
+                            Set project file name
+            
+            -p, --password
+                            Set database password
+
+            --datasources
+                            Return datasources list
+
+            --pages
+                            Return pages list
+
+            --mutation
+                            Refactoring a table datasource to a query datasource
+
+            -t, --table
+                            Set table name for mutation
+
+            -q, --query
+                            Set query name to generate
+
+            -v, --version
+                            Return version
+
+            -h, --help
+                            Display help
+
+HELP
+    say $help;
+    exit;
 }
 
 =pod
