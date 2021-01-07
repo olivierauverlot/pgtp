@@ -2,4 +2,5 @@ local/
 .vstags
 test.pgtp
 run.bat
+pgtp.exe
 
