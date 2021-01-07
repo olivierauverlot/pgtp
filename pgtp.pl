@@ -57,7 +57,8 @@ if(defined $projectFileName) {
             my $dom = XML::LibXML->load_xml( location => $projectFileName );
             my $parser = Pgtp::XMLParser->new($dom,$project);
             $project->getConnectionOptions()->setPassword($password);
-            p( $project->getConnectionOptions());
+            # p( $project->getConnectionOptions());
+            p($project);
             if($mutation) {
                 if(defined $table && defined $query) {
                 } else {

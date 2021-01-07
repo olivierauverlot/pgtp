@@ -52,5 +52,5 @@ is ( (defined $tdt && $tdt->getName() eq 'public.personne'), true, 'public.perso
 my $qdt = $project->getDatasourceFromName('trombinoscope');
 is ( (defined $qdt && $qdt->getName() eq 'trombinoscope') , true, 'Trombinoscope datasource is defined');
 
-my @pks = $qdt->getPrimaryKeys();
-is ( scalar @pks, 1, '1 pk is defined in trombinoscope query datasource');
+my @fields = $qdt->getPrimaryKeyFields();
+is ( scalar @fields, 1, 'one primary key field is defined in trombinoscope query datasource');

@@ -51,6 +51,11 @@ sub extractDatasources {
             $datasource = Model::TableDatasource->new($dt->findvalue('@name'),$toplevelpage);
         } else {
             $datasource = Model::QueryDatasource->new($dt->findvalue('@name'),$toplevelpage);
+            # extract Primary Key Fields
+            my @fields = $dt->findnodes('PrimaryKeyFields/Field');
+            foreach my $field (@fields) {
+                $datasource->addPrimaryKeyField($field->findvalue('@name'));
+            }
         }
         $this->{project}->addDatasource($datasource);
     }

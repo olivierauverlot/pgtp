@@ -25,8 +25,8 @@ sub isQueryDatasource {
 }
 
 sub addPrimaryKeyField {
-    my ($this,$pkName) = @_;
-    push @{ $this->{primaryKeyFields} }, $pkName;
+    my ($this,$fieldName) = @_;
+    push @{ $this->{primaryKeyFields} }, $fieldName;
 }
 
 sub getPrimaryKeyFields {

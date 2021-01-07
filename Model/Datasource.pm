@@ -38,4 +38,8 @@ sub getName {
     return $this->{name};
 }
 
+sub getPrimaryKeys {
+
+}
+
 1;
