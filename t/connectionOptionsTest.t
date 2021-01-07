@@ -2,6 +2,7 @@ use strict;
 use Test::More 'no_plan';
 use FindBin;                
 use lib "$FindBin::RealBin/../";
+use Data::Printer;
 
 use Pgtp::XMLParser;
 use Model::Project;

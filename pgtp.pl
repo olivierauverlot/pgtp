@@ -17,6 +17,9 @@ use constant VERSION => '0.1 Build 20210104-1';
 
 my $projectFileName;
 my $mutation;
+my $datasources;
+my $pages;
+
 my $password;
 my $table;
 my $query;
@@ -42,7 +45,9 @@ my $result = GetOptions(
     't|table=s' => \$table,
     'q|query=s' => \$query,
     'v|version' => sub { version() },
-    'mutation' => \$mutation
+    'mutation' => \$mutation,
+    'datasources' => \$datasources,
+    'pages' => \$pages
 ) or die "Invalid options passed to $0\n";
 
 if(defined $projectFileName) {
@@ -59,6 +64,8 @@ if(defined $projectFileName) {
                     exitOnError "You must indicate table name and query name";
                 }
             }
+            if($datasources) { }
+            if($pages) { }
         } else {
             exitOnError "No database password";
         }

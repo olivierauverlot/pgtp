@@ -4,10 +4,13 @@ use strict;
 use warnings;
 use utf8;
 use 5.010;
+use boolean;
 use Data::Printer;
 use XML::LibXML;
 
 use Model::ConnectionOptions;
+use Model::TableDatasource;
+use Model::QueryDatasource;
 
 sub new {
     my($class,$_dom,$_project) = @_;
@@ -18,6 +21,7 @@ sub new {
     bless($this,$class);
     $this->{dom} = $_dom;
     $this->extractConnectionOptions();
+    $this->extractDatasources();
     return $this;
 }
 
@@ -32,12 +36,24 @@ sub extractConnectionOptions {
 
     my $connectionOptions = Model::ConnectionOptions->new($host,$port,$login,$database,$clientEncoding);  
     $this->{project}->setConnectionOptions($connectionOptions);
-    
-=pod
-    foreach my $node ($this->{dom}->findnodes('//ConnectionOptions')) {
-        my @attributelist = $node->attributes();
-        p (@attributelist);
-    }
-=cut
 }
+
+sub extractDatasources {
+    my($this) = @_;
+
+    foreach my $dt ($this->{dom}->findnodes('/Project/DataSources/DataSource')) {
+        my $datasource;
+        my $toplevelpage;
+        
+        $toplevelpage = ( $dt->findvalue('@createTopLevelPage') eq '' ) ? true : false;
+
+        if( $dt->findvalue('@type') eq '') {
+            $datasource = Model::TableDatasource->new($dt->findvalue('@name'),$toplevelpage);
+        } else {
+            $datasource = Model::QueryDatasource->new($dt->findvalue('@name'),$toplevelpage);
+        }
+        $this->{project}->addDatasource($datasource);
+    }
+}
+
 1;
