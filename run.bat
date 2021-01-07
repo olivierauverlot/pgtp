@@ -1,1 +1,1 @@
-carton exec perl pgtp.pl "--mutation -v -f test.pgtp -p cplubd22 -t public.personne -q sql_personnes"
+carton exec perl pgtp.pl "--datasources -f test.pgtp"

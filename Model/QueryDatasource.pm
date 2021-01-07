@@ -34,4 +34,9 @@ sub getPrimaryKeyFields {
     return @{ $this->{primaryKeyFields} };
 }
 
+sub getType {
+    my ($this) = @_;
+    return 'Query';
+}
+
 1;

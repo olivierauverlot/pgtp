@@ -35,9 +35,40 @@ sub exitOnError {
     exit(0);
 }
 
+sub displayDatasources {
+    my ($project) = @_;
+    my @rows;
+
+    foreach my $dt ( $project->getDatasources() ) {
+        my @row;
+
+        push @row,(
+            $dt->getName(),
+            $dt->getType(),
+            $dt->isTopLevelPage() ? 'Yes' : 'No',
+            join(',',$dt->getPrimaryKeyFields())
+        );
+
+        push @rows, \@row;
+    }
+
+    my $table = Term::Table->new(
+        max_width      => 80,    # defaults to terminal size
+        pad            => 4,     # Extra padding between table and max-width (defaults to 4)
+        allow_overflow => 0,     # default is 0, when off an exception will be thrown if the table is too big
+        collapse       => 1,     # do not show empty columns
+        header => [ 'Name', 'Type', 'Top level page', 'Primary Key fields'],
+        rows => \@rows
+    );
+
+    print "\n";
+    say $_ for $table->render;
+    exit(1);
+}
+
 # carton exec perl pgtp.pl "-v"
 # carton exec perl pgtp.pl "-f test.pgtp -p mypassword --mutation  -t public.personne -q sql_personnes"
-# carton exec perl pgtp.pl "--datasources -f test.pgtp -p mypassword"
+# carton exec perl pgtp.pl "--datasources -f test.pgtp"
 # carton exec perl pgtp.pl "--pages -f test.pgtp -p mypassword"
 
 my $result = GetOptions(
@@ -54,23 +85,25 @@ my $result = GetOptions(
 
 if(defined $projectFileName) {
     if(-e $projectFileName) {
-        if(defined $password) {
-            my $project = Model::Project->new();
-            my $dom = XML::LibXML->load_xml( location => $projectFileName );
-            my $parser = Pgtp::XMLParser->new($dom,$project);
-            $project->getConnectionOptions()->setPassword($password);
-            # p( $project->getConnectionOptions());
-            p($project);
-            if($mutation) {
+        my $project = Model::Project->new();
+        my $dom = XML::LibXML->load_xml( location => $projectFileName );
+        my $parser = Pgtp::XMLParser->new($dom,$project);
+        
+        if($datasources) { 
+            displayDatasources($project);
+        }
+        if($pages) { }
+
+        if($mutation) {
+            if(defined $password) {
+                $project->getConnectionOptions()->setPassword($password);
                 if(defined $table && defined $query) {
                 } else {
                     exitOnError "You must indicate table name and query name";
                 }
+            } else {
+                exitOnError "No database password";
             }
-            if($datasources) { }
-            if($pages) { }
-        } else {
-            exitOnError "No database password";
         }
     } else {
         exitOnError "$projectFileName not found";

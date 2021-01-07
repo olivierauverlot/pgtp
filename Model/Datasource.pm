@@ -38,6 +38,11 @@ sub getName {
     return $this->{name};
 }
 
+sub getType {
+    my ($this) = @_;
+    return undef;
+}
+
 sub getPrimaryKeys {
 
 }

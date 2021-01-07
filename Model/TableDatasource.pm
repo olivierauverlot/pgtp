@@ -24,4 +24,14 @@ sub isTableDatasource {
     return true;
 }
 
+sub getType {
+    my ($this) = @_;
+    return 'Table';
+}
+
+sub getPrimaryKeyFields {
+    my ($this) = @_;
+    return ();
+}
+
 1;
