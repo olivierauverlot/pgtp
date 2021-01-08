@@ -73,7 +73,7 @@ sub extractPagesFrom {
     foreach my $p ( @{ $nodes } ) {
         push @pages,$this->extractPage($p,$isDetails);
     }
-    return @pages;
+    return \@pages;
 }
 
 sub extractPage {
@@ -89,7 +89,7 @@ sub extractPage {
 
     $this->{project}->addPage($page);
     $page->setDetailsPages($this->extractPagesFrom( \@{ $node->findnodes("Details/Detail/Page") } , true));
-    
+
     return $page;
 }
 

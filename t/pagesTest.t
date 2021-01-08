@@ -73,7 +73,14 @@ is ( (defined $prel && $prel->getShortCaption() eq "Laboratoire"), true, "'Labor
 my $paff = $project->getPageFromShortCaption("Affectations");
 is ( (defined $paff && $paff->getShortCaption() eq "Affectations"), true, "'Affectations' page is defined");
 
+my $tromb = $project->getPageFromShortCaption("trombinoscope");
+is ( (defined $tromb && $tromb->getShortCaption() eq "trombinoscope"), true, "'Trombinoscope' page is defined");
+
 is ($padm->isDetailsPage(),false,"'Demandes d'admission' is a master page");
 is ($prel->isDetailsPage(),true,"'Laboratoire' is a details page");
 is ($paff->isDetailsPage(),true,"'Affectations' is a details page");
+
+is( scalar $tromb->getDetailsPages(),1, "'Trombinoscope' has one details page");
+is( scalar $prel->getDetailsPages(),1, "'Laboratoire' has one details page");
+
 

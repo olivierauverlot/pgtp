@@ -61,4 +61,10 @@ sub setDetailsPages {
     my($this,$detailsPages) = @_;
     $this->{detailsPages} = $detailsPages;
 }
+
+sub getDetailsPages {
+    my($this,$detailsPages) = @_;
+    return @{ $this->{detailsPages} };
+}
+
 1;
