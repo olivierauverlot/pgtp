@@ -35,6 +35,23 @@ sub exitOnError {
     exit(0);
 }
 
+sub displayTableFrom {
+    my ($header,$rows) = @_;
+
+    my $table = Term::Table->new(
+        max_width      => 160,    
+        pad            => 4,     
+        allow_overflow => 0,    
+        collapse       => 1, 
+        header => $header,
+        rows => $rows
+    );
+
+    print "\n";
+    say $_ for $table->render;
+    exit(1);
+}
+
 sub displayDatasources {
     my ($project) = @_;
     my @rows;
@@ -52,18 +69,30 @@ sub displayDatasources {
         push @rows, \@row;
     }
 
-    my $table = Term::Table->new(
-        max_width      => 80,    # defaults to terminal size
-        pad            => 4,     # Extra padding between table and max-width (defaults to 4)
-        allow_overflow => 0,     # default is 0, when off an exception will be thrown if the table is too big
-        collapse       => 1,     # do not show empty columns
-        header => [ 'Name', 'Type', 'Top level page', 'Primary Key fields'],
-        rows => \@rows
-    );
+    displayTableFrom( [ 'Name', 'Type', 'Top level page', 'Primary Key fields'], \@rows );
 
-    print "\n";
-    say $_ for $table->render;
-    exit(1);
+}
+
+sub displayPages {
+    my ($project) = @_;
+    my @rows;
+
+    foreach my $p ( $project->getPages() ) {
+        my @row;
+
+        push @row,(
+            $p->getFileName(),
+            $p->getType(),
+            $p->getDatasourceName(),
+            $p->getShortCaption(),
+            $p->getCaption(),
+            $p->isDetailsPage() ? 'Yes' : 'No'
+        );
+
+        push @rows, \@row;
+    }
+
+    displayTableFrom( [ 'File name', 'Type', 'Datasource', 'Short caption','Caption','Details page' ], \@rows );
 }
 
 # carton exec perl pgtp.pl "-v"
@@ -92,7 +121,9 @@ if(defined $projectFileName) {
         if($datasources) { 
             displayDatasources($project);
         }
-        if($pages) { }
+        if($pages) { 
+            displayPages($project);
+        }
 
         if($mutation) {
             if(defined $password) {
