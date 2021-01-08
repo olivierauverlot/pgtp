@@ -8,8 +8,9 @@ use Data::Printer;
 use boolean;
 
 sub new {
-    my($class,$_datasourceName,$_shortCaption,$_caption) = @_;
+    my($class,$_fileName,$_datasourceName,$_shortCaption,$_caption) = @_;
     my $this = { 
+        fileName => $_fileName,
         datasourceName => $_datasourceName,
         shortCaption => $_shortCaption,
         caption => $_caption
@@ -27,6 +28,11 @@ sub isTablePage {
 sub isQueryPage {
     my($this) = @_;
     return false;
+}
+
+sub getFileName {
+    my($this) = @_;
+    return $this->{fileName};
 }
 
 sub getDatasourceName {

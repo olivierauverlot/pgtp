@@ -41,10 +41,10 @@ my $parser = Pgtp::XMLParser->new($dom,$project);
 
 my @datasources = $project->getDatasources();
 
-is( scalar @datasources,3, '3 datasources defined');
+is( scalar @datasources,3, 'Three datasources defined');
 
-is( scalar $project->getTableDatasources(),2, '2 table defined');
-is( scalar $project->getQueryDatasources(),1, '1 query defined');
+is( scalar $project->getTableDatasources(),2, 'Two table defined');
+is( scalar $project->getQueryDatasources(),1, 'One query defined');
 
 my $tdt = $project->getDatasourceFromName('public.personne');
 is ( (defined $tdt && $tdt->getName() eq 'public.personne'), true, 'public.personne datasource is defined');
@@ -53,4 +53,4 @@ my $qdt = $project->getDatasourceFromName('trombinoscope');
 is ( (defined $qdt && $qdt->getName() eq 'trombinoscope') , true, 'Trombinoscope datasource is defined');
 
 my @fields = $qdt->getPrimaryKeyFields();
-is ( scalar @fields, 1, 'one primary key field is defined in trombinoscope query datasource');
+is ( scalar @fields, 1, 'One primary key field is defined in trombinoscope query datasource');

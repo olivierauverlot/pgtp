@@ -13,7 +13,7 @@ my $xml = <<XML;
 <Project>
     <DataSources>
         <DataSource name="admission.inscription"/>
-        <DataSource name="public.personne" createTopLevelPage="false"/>
+        <DataSource name="public.r_perlab" createTopLevelPage="false"/>
         <DataSource name="trombinoscope" type="query">
         <PrimaryKeyFields>
             <Field name="clepersonne"/>
@@ -30,13 +30,16 @@ my $xml = <<XML;
         prenompersonne      </SelectStatement>
         </DataSource>
     </DataSources>
-      <Presentation disableMagicQuotesRuntime="false" showEnvironmentVariables="false" showExecutedQueries="false" showPHPErrorsAndWarnings="false" menuMode="1" hasHomePage="false">
-    <Pages>
-      <Page type="table" tableName="admission.inscription" numberByDataSource="0" fileName="admission.inscription" caption="Demandes d'admission" shortCaption="Demandes d'admission" allowAddMultipleRecords="false" groupName="Gestion des membres" addSeparator="false" horizontalFilterCondition="(valide = false)" recordsPerPage="20" NavigatorPosition="2" insertAbilityMode="1" multiEditAbility="0" deleteAbilityMode="3" copyAbilityMode="0" deleteSelectedAbilityMode="3" contentEncoding="UTF-8" detailButtonsPosition="1" sortingByClickAvailable="false" sortingByDialogAvailable="false" exportAllRecordsAvailable="31" exportSelectedRecordsAvailable="31" exportSingleRecordFromGridAvailable="0" exportRecordFromViewFormAvailable="31" printAvailable="13" filterBuilderAvailable="false" highlightRowOnMouseHover="true" useActionImages="true" useFixedGridHeader="true" showKeyColumnsImagesInGridHeader="false" runtimeCustomizationAvailable="false">
-      </page>
-      <Page type="query" queryName="trombinoscope" numberByDataSource="0" fileName="admission.inscription" caption="Demandes d'admission" shortCaption="Demandes d'admission" allowAddMultipleRecords="false" groupName="Gestion des membres" addSeparator="false" horizontalFilterCondition="(valide = false)" recordsPerPage="20" NavigatorPosition="2" insertAbilityMode="1" multiEditAbility="0" deleteAbilityMode="3" copyAbilityMode="0" deleteSelectedAbilityMode="3" contentEncoding="UTF-8" detailButtonsPosition="1" sortingByClickAvailable="false" sortingByDialogAvailable="false" exportAllRecordsAvailable="31" exportSelectedRecordsAvailable="31" exportSingleRecordFromGridAvailable="0" exportRecordFromViewFormAvailable="31" printAvailable="13" filterBuilderAvailable="false" highlightRowOnMouseHover="true" useActionImages="true" useFixedGridHeader="true" showKeyColumnsImagesInGridHeader="false" runtimeCustomizationAvailable="false">
-      </page>
-    </Pages>
+    <Presentation disableMagicQuotesRuntime="false" showEnvironmentVariables="false" showExecutedQueries="false" showPHPErrorsAndWarnings="false" menuMode="1" hasHomePage="false">
+        <Pages>
+            <Page type="table" tableName="admission.inscription" numberByDataSource="0" fileName="admission.inscription" caption="Demandes d'admission" shortCaption="Demandes d'admission" allowAddMultipleRecords="false" groupName="Gestion des membres" addSeparator="false" horizontalFilterCondition="(valide = false)" recordsPerPage="20" NavigatorPosition="2" insertAbilityMode="1" multiEditAbility="0" deleteAbilityMode="3" copyAbilityMode="0" deleteSelectedAbilityMode="3" contentEncoding="UTF-8" detailButtonsPosition="1" sortingByClickAvailable="false" sortingByDialogAvailable="false" exportAllRecordsAvailable="31" exportSelectedRecordsAvailable="31" exportSingleRecordFromGridAvailable="0" exportRecordFromViewFormAvailable="31" printAvailable="13" filterBuilderAvailable="false" highlightRowOnMouseHover="true" useActionImages="true" useFixedGridHeader="true" showKeyColumnsImagesInGridHeader="false" runtimeCustomizationAvailable="false">
+            </Page>
+            <Page type="query" queryName="trombinoscope" numberByDataSource="0" fileName="trombinoscope" caption="Demandes d'admission" shortCaption="Demandes d'admission" allowAddMultipleRecords="false" groupName="Gestion des membres" addSeparator="false" horizontalFilterCondition="(valide = false)" recordsPerPage="20" NavigatorPosition="2" insertAbilityMode="1" multiEditAbility="0" deleteAbilityMode="3" copyAbilityMode="0" deleteSelectedAbilityMode="3" contentEncoding="UTF-8" detailButtonsPosition="1" sortingByClickAvailable="false" sortingByDialogAvailable="false" exportAllRecordsAvailable="31" exportSelectedRecordsAvailable="31" exportSingleRecordFromGridAvailable="0" exportRecordFromViewFormAvailable="31" printAvailable="13" filterBuilderAvailable="false" highlightRowOnMouseHover="true" useActionImages="true" useFixedGridHeader="true" showKeyColumnsImagesInGridHeader="false" runtimeCustomizationAvailable="false">
+            </Page>
+            <Page type="table" tableName="public.r_perlab" numberByDataSource="0" fileName="" caption="Laboratoire" shortCaption="Laboratoire" addSeparator="false" horizontalFilterCondition="" recordsPerPage="20" NavigatorPosition="2" insertAbilityMode="1" multiEditAbility="0" deleteAbilityMode="3" deleteSelectedAbilityMode="3" contentEncoding="UTF-8" detailButtonsPosition="1" exportAllRecordsAvailable="31" exportSelectedRecordsAvailable="31" exportSingleRecordFromGridAvailable="0" exportRecordFromViewFormAvailable="31" printAvailable="13" quickSearchAvailable="false" filterBuilderAvailable="false" highlightRowOnMouseHover="true" useActionImages="true" useFixedGridHeader="true" showKeyColumnsImagesInGridHeader="false" runtimeCustomizationAvailable="false" recordsComparisionAvailable="false">
+            </Page>
+        </Pages>
+    </Presentation>
 </Project>
 XML
 
@@ -45,3 +48,16 @@ my $dom = XML::LibXML->load_xml( string => $xml );
 my $parser = Pgtp::XMLParser->new($dom,$project);
 
 my @pages = $project->getPages();
+
+is( scalar @pages,2, 'Two pages defined');
+
+is( scalar $project->getTablePage(),1, 'One page defined from a table');
+is( scalar $project->getQueryPage(),1, 'One page defined from a query');
+
+my $padm = $project->getPageFromshortCaption("Demandes d'admission");
+is ( (defined $padm && $padm->getshortCaption() eq "Demandes d'admission"), true, 'admission.inscription page is defined');
+
+my $prel = $project->getPageFromshortCaption("Laboratoire");
+is ( (defined $prel && $prel->getshortCaption() eq "Laboratoire"), true, 'public.r_perlab page is defined');
+
+is ($padm->isDetailsPage(),true,'public.r_perlab is a details page');
