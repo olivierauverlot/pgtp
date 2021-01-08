@@ -10,8 +10,8 @@ use boolean;
 our @ISA = qw(Model::Page);
 
 sub new {
-    my($class,$_fileName,$_datasourceName,$_shortCaption,$_caption) = @_;
-    my $this = $class->SUPER::new($_fileName,$_datasourceName,$_shortCaption,$_caption);
+    my($class,$_fileName,$_datasourceName,$_shortCaption,$_caption,$_detailsPage) = @_;
+    my $this = $class->SUPER::new($_fileName,$_datasourceName,$_shortCaption,$_caption,$_detailsPage);
     
     bless($this,$class);
     return $this;

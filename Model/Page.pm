@@ -8,12 +8,14 @@ use Data::Printer;
 use boolean;
 
 sub new {
-    my($class,$_fileName,$_datasourceName,$_shortCaption,$_caption) = @_;
+    my($class,$_fileName,$_datasourceName,$_shortCaption,$_caption,$_detailsPage) = @_;
     my $this = { 
         fileName => $_fileName,
         datasourceName => $_datasourceName,
         shortCaption => $_shortCaption,
-        caption => $_caption
+        caption => $_caption,
+        detailsPage => $_detailsPage,
+        detailsPages => [ ]
     };
 
     bless($this,$class);
@@ -32,7 +34,7 @@ sub isQueryPage {
 
 sub isDetailsPage {
     my($this) = @_;
-    return ( $this->getFileName() eq '' ? true : false );
+    return $this->{detailsPage};
 }
 
 sub getFileName {
@@ -55,4 +57,8 @@ sub getCaption {
     return $this->{caption}; 
 }
 
+sub setDetailsPages {
+    my($this,$detailsPages) = @_;
+    $this->{detailsPages} = $detailsPages;
+}
 1;

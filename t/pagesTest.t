@@ -35,8 +35,18 @@ my $xml = <<XML;
             <Page type="table" tableName="admission.inscription" numberByDataSource="0" fileName="admission.inscription" caption="Demandes d'admission" shortCaption="Demandes d'admission" allowAddMultipleRecords="false" groupName="Gestion des membres" addSeparator="false" horizontalFilterCondition="(valide = false)" recordsPerPage="20" NavigatorPosition="2" insertAbilityMode="1" multiEditAbility="0" deleteAbilityMode="3" copyAbilityMode="0" deleteSelectedAbilityMode="3" contentEncoding="UTF-8" detailButtonsPosition="1" sortingByClickAvailable="false" sortingByDialogAvailable="false" exportAllRecordsAvailable="31" exportSelectedRecordsAvailable="31" exportSingleRecordFromGridAvailable="0" exportRecordFromViewFormAvailable="31" printAvailable="13" filterBuilderAvailable="false" highlightRowOnMouseHover="true" useActionImages="true" useFixedGridHeader="true" showKeyColumnsImagesInGridHeader="false" runtimeCustomizationAvailable="false">
             </Page>
             <Page type="query" queryName="trombinoscope" numberByDataSource="0" fileName="trombinoscope" caption="Demandes d'admission" shortCaption="trombinoscope" allowAddMultipleRecords="false" groupName="Gestion des membres" addSeparator="false" horizontalFilterCondition="(valide = false)" recordsPerPage="20" NavigatorPosition="2" insertAbilityMode="1" multiEditAbility="0" deleteAbilityMode="3" copyAbilityMode="0" deleteSelectedAbilityMode="3" contentEncoding="UTF-8" detailButtonsPosition="1" sortingByClickAvailable="false" sortingByDialogAvailable="false" exportAllRecordsAvailable="31" exportSelectedRecordsAvailable="31" exportSingleRecordFromGridAvailable="0" exportRecordFromViewFormAvailable="31" printAvailable="13" filterBuilderAvailable="false" highlightRowOnMouseHover="true" useActionImages="true" useFixedGridHeader="true" showKeyColumnsImagesInGridHeader="false" runtimeCustomizationAvailable="false">
-            </Page>
-            <Page type="table" tableName="public.r_perlab" numberByDataSource="0" fileName="" caption="Laboratoire" shortCaption="Laboratoire" addSeparator="false" horizontalFilterCondition="" recordsPerPage="20" NavigatorPosition="2" insertAbilityMode="1" multiEditAbility="0" deleteAbilityMode="3" deleteSelectedAbilityMode="3" contentEncoding="UTF-8" detailButtonsPosition="1" exportAllRecordsAvailable="31" exportSelectedRecordsAvailable="31" exportSingleRecordFromGridAvailable="0" exportRecordFromViewFormAvailable="31" printAvailable="13" quickSearchAvailable="false" filterBuilderAvailable="false" highlightRowOnMouseHover="true" useActionImages="true" useFixedGridHeader="true" showKeyColumnsImagesInGridHeader="false" runtimeCustomizationAvailable="false" recordsComparisionAvailable="false">
+                <Details>
+                    <Detail caption="Laboratoire">
+                        <Page type="table" tableName="public.r_perlab" numberByDataSource="0" fileName="" caption="Laboratoire" shortCaption="Laboratoire" addSeparator="false" horizontalFilterCondition="" recordsPerPage="20" NavigatorPosition="2" insertAbilityMode="1" multiEditAbility="0" deleteAbilityMode="3" deleteSelectedAbilityMode="3" contentEncoding="UTF-8" detailButtonsPosition="1" exportAllRecordsAvailable="31" exportSelectedRecordsAvailable="31" exportSingleRecordFromGridAvailable="0" exportRecordFromViewFormAvailable="31" printAvailable="13" quickSearchAvailable="false" filterBuilderAvailable="false" highlightRowOnMouseHover="true" useActionImages="true" useFixedGridHeader="true" showKeyColumnsImagesInGridHeader="false" runtimeCustomizationAvailable="false" recordsComparisionAvailable="false">
+                            <Details>
+                                <Detail caption="Affectations">
+                                    <Page type="query" queryName="affectationsParSupport" numberByDataSource="0" fileName="" caption="Affectations" shortCaption="Affectations" addSeparator="false" horizontalFilterCondition="" recordsPerPage="20" NavigatorPosition="2" insertAbilityMode="1" deleteAbilityMode="3" deleteSelectedAbilityMode="3" contentEncoding="UTF-8" detailButtonsPosition="1" exportAllRecordsAvailable="31" exportSelectedRecordsAvailable="31" exportSingleRecordFromGridAvailable="0" exportRecordFromViewFormAvailable="31" printAvailable="13" quickSearchAvailable="false" filterBuilderAvailable="false" highlightRowOnMouseHover="true" useActionImages="true" useFixedGridHeader="true" showKeyColumnsImagesInGridHeader="false" runtimeCustomizationAvailable="false" recordsComparisionAvailable="false">
+                                    </Page>
+                                </Detail>
+                            </Details>
+                        </Page>
+                    </Detail>
+                </Details>
             </Page>
         </Pages>
     </Presentation>
@@ -49,16 +59,21 @@ my $parser = Pgtp::XMLParser->new($dom,$project);
 
 my @pages = $project->getPages();
 
-is( scalar @pages,3, 'Three pages defined');
+is( scalar @pages,4, 'Four pages defined');
 
 is( scalar $project->getTablePage(),2, 'Two pages defined from a table');
-is( scalar $project->getQueryPage(),1, 'One page defined from a query');
+is( scalar $project->getQueryPage(),2, 'Two page defined from a query');
 
 my $padm = $project->getPageFromShortCaption("Demandes d'admission");
-is ( (defined $padm && $padm->getShortCaption() eq "Demandes d'admission"), true, 'admission.inscription page is defined');
+is ( (defined $padm && $padm->getShortCaption() eq "Demandes d'admission"), true, "'Demandes d'admission' page is defined");
 
 my $prel = $project->getPageFromShortCaption("Laboratoire");
-is ( (defined $prel && $prel->getShortCaption() eq "Laboratoire"), true, 'public.r_perlab page is defined');
+is ( (defined $prel && $prel->getShortCaption() eq "Laboratoire"), true, "'Laboratoire' page is defined");
 
-is ($padm->isDetailsPage(),false,'admission.inscription is a master page');
-is ($prel->isDetailsPage(),true,'public.r_perlab is a details page');
+my $paff = $project->getPageFromShortCaption("Affectations");
+is ( (defined $paff && $paff->getShortCaption() eq "Affectations"), true, "'Affectations' page is defined");
+
+is ($padm->isDetailsPage(),false,"'Demandes d'admission' is a master page");
+is ($prel->isDetailsPage(),true,"'Laboratoire' is a details page");
+is ($paff->isDetailsPage(),true,"'Affectations' is a details page");
+

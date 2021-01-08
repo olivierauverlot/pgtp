@@ -65,27 +65,40 @@ sub extractDatasources {
     }
 }
 
-sub extractPages {
-    my ($this) = @_;
-       
-    my $page;
-    my $filename;
-    my $datasourcename;
-    my $shortcaption;
-    my $caption;
+sub extractPagesFrom {
+    my ($this,$nodes,$isDetails) = @_;
 
-    foreach my $p ($this->{dom}->findnodes('/Project/Presentation/Pages/Page')) {
-        $filename =  $p->findvalue('@fileName');
-        $shortcaption = $p->findvalue('@shortCaption');
-        $caption = $p->findvalue('@caption');
+    my @pages;
 
-        if( $p->findvalue('@queryName') eq '' ) {
-            $page = Model::TablePage->new($filename,$datasourcename,$shortcaption,$caption);
-        } else {
-            $page = Model::QueryPage->new($filename,$datasourcename,$shortcaption,$caption);
-        }
-        $this->{project}->addPage($page)
+    foreach my $p ( @{ $nodes } ) {
+        push @pages,$this->extractPage($p,$isDetails);
     }
+    return @pages;
 }
 
+sub extractPage {
+    my ($this,$node,$isDetails) = @_;
+
+    my $page;
+
+    if( $node->findvalue('@queryName') eq '' ) {
+        $page = Model::TablePage->new($node->findvalue('@fileName'),$node->findvalue('@tableName'),$node->findvalue('@shortCaption'),$node->findvalue('@caption'),$isDetails);
+    } else {
+        $page = Model::QueryPage->new($node->findvalue('@fileName'),$node->findvalue('@queryName'),$node->findvalue('@shortCaption'),$node->findvalue('@caption'),$isDetails);
+    }
+
+    $this->{project}->addPage($page);
+    $page->setDetailsPages($this->extractPagesFrom( \@{ $node->findnodes("Details/Detail/Page") } , true));
+    
+    return $page;
+}
+
+
+sub extractPages {
+    my ($this) = @_;
+
+    p( 
+        $this->extractPagesFrom( \@{ $this->{dom}->findnodes('/Project/Presentation/Pages/Page') } , false ) 
+    );     
+}
 1;

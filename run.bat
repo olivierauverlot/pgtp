@@ -1,1 +1,1 @@
-carton exec perl pgtp.pl "--datasources -f test.pgtp"
+carton exec perl pgtp.pl "--pages -f test.pgtp"
