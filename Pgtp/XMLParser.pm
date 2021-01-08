@@ -96,9 +96,6 @@ sub extractPage {
 
 sub extractPages {
     my ($this) = @_;
-
-    p( 
-        $this->extractPagesFrom( \@{ $this->{dom}->findnodes('/Project/Presentation/Pages/Page') } , false ) 
-    );     
+    $this->extractPagesFrom( \@{ $this->{dom}->findnodes('/Project/Presentation/Pages/Page') } , false );   
 }
 1;

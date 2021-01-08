@@ -92,7 +92,7 @@ sub displayPages {
         push @rows, \@row;
     }
 
-    displayTableFrom( [ 'File name', 'Type', 'Datasource', 'Short caption','Caption','Details page' ], \@rows );
+    displayTableFrom( [ 'Filename', 'Type', 'Datasource', 'Short caption','Caption','Details Page' ], \@rows );
 }
 
 # carton exec perl pgtp.pl "-v"
