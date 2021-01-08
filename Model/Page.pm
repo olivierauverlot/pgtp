@@ -30,6 +30,11 @@ sub isQueryPage {
     return false;
 }
 
+sub isDetailsPage {
+    my($this) = @_;
+    return ( $this->getFileName() eq '' ? true : false );
+}
+
 sub getFileName {
     my($this) = @_;
     return $this->{fileName};

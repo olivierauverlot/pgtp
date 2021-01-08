@@ -11,6 +11,9 @@ use XML::LibXML;
 use Model::ConnectionOptions;
 use Model::TableDatasource;
 use Model::QueryDatasource;
+use Model::Page;
+use Model::TablePage;
+use Model::Querypage;
 
 sub new {
     my($class,$_dom,$_project) = @_;
@@ -22,6 +25,7 @@ sub new {
     $this->{dom} = $_dom;
     $this->extractConnectionOptions();
     $this->extractDatasources();
+    $this->extractPages();
     return $this;
 }
 
@@ -58,6 +62,29 @@ sub extractDatasources {
             }
         }
         $this->{project}->addDatasource($datasource);
+    }
+}
+
+sub extractPages {
+    my ($this) = @_;
+       
+    my $page;
+    my $filename;
+    my $datasourcename;
+    my $shortcaption;
+    my $caption;
+
+    foreach my $p ($this->{dom}->findnodes('/Project/Presentation/Pages/Page')) {
+        $filename =  $p->findvalue('@fileName');
+        $shortcaption = $p->findvalue('@shortCaption');
+        $caption = $p->findvalue('@caption');
+
+        if( $p->findvalue('@queryName') eq '' ) {
+            $page = Model::TablePage->new($filename,$datasourcename,$shortcaption,$caption);
+        } else {
+            $page = Model::QueryPage->new($filename,$datasourcename,$shortcaption,$caption);
+        }
+        $this->{project}->addPage($page)
     }
 }
 

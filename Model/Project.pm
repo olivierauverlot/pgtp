@@ -14,7 +14,8 @@ sub new {
     my($class) = @_;
     my $this = { 
         connectionOptions => undef,
-        dataSources => [ ]
+        dataSources => [ ],
+        pages => [ ]
     };
 
     bless($this,$class);
@@ -31,6 +32,10 @@ sub getConnectionOptions {
     return $this->{connectionOptions};
 }
 
+# ----------------------------------------------
+# Datasources management
+# ----------------------------------------------
+
 sub addDatasource {
     my($this,$datasource) = @_;
     push @{ $this->{dataSources} },$datasource;
@@ -43,17 +48,17 @@ sub getDatasources {
 
 sub getTableDatasources {
     my($this) = @_;
-    return (grep { $_->isTableDatasource() } @{ $this->{dataSources} } );
+    return (grep { $_->isTableDatasource() } $this->getDatasources() );
 }
 
 sub getQueryDatasources {
     my($this) = @_;
-    return (grep { $_->isQueryDatasource() } @{ $this->{dataSources} } );  
+    return (grep { $_->isQueryDatasource() } $this->getDatasources() );  
 }
 
 sub getDatasourceFromName {
     my($this,$name) = @_;
-    my @dt = grep { $_->getName() eq $name } @{ $this->{dataSources} };
+    my @dt = grep { $_->getName() eq $name }  $this->getDatasources() ;
     if(scalar @dt > 0) {
         return $dt[0];
     } else {
@@ -61,4 +66,37 @@ sub getDatasourceFromName {
     }
 }
 
+# ----------------------------------------------
+# Pages management
+# ----------------------------------------------
+sub addPage {
+    my($this,$aPage) = @_;
+    push @{ $this->{pages} },$aPage;
+}
+
+sub getPages {
+    my($this) = @_;
+    return @{ $this->{pages} };
+}
+
+sub getTablePage {
+    my($this) = @_;
+    return (grep { $_->isTablePage() } $this->getPages() );
+}
+
+sub getQueryPage {
+    my($this) = @_;
+    return (grep { $_->isQueryPage() } $this->getPages() );
+}
+
+sub getPageFromShortCaption {
+    my($this,$shortcaption) = @_;
+    my @pages = grep { $_->getShortCaption() eq $shortcaption } $this->getPages();
+
+    if(scalar @pages > 0) {
+        return $pages[0];
+    } else {
+        return undef;
+    }
+}
 return 1;
