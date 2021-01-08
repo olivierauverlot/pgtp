@@ -1,0 +1,3 @@
+=head1 pgtp - A refactoring tool for SQL Mastro PHP Generator projects
+
+=cut
