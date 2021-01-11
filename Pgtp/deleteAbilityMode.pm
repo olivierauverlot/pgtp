@@ -12,9 +12,9 @@ use Pgtp::AbilityMode;
 our @ISA = qw(Pgtp::AbilityMode);
 
 sub new {
-    my($class) = @_;
-    my $this = $class->SUPER::new();
-    $this->defaultValue = $this->{DISABLED};
+    my($class,$_value) = @_;
+    my $this = $class->SUPER::new($_value);
+    $this->{defaultValue} = $this->{DISABLED};
 
     bless($this,$class);
     return $this;

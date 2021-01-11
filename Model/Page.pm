@@ -7,6 +7,8 @@ use 5.010;
 use Data::Printer;
 use boolean;
 
+use Pgtp::AbilityModes;
+
 sub new {
     my($class,$_fileName,$_datasourceName,$_shortCaption,$_caption,$_detailsPage) = @_;
     my $this = { 
@@ -17,7 +19,7 @@ sub new {
         detailsPage => $_detailsPage,
         masterPage => undef,
         detailsPages => [ ],
-        abilityModes => [ ]
+        abilityModes => undef
     };
 
     bless($this,$class);
@@ -85,38 +87,19 @@ sub getDetailsPages {
 # -------------------------------------------
 # Abilities management
 # -------------------------------------------
-sub addAbilityMode {
-    my($this,$aAbilityMode) = @_;
-    push $this->{abilityModes},$aAbilityMode;
+sub setAbilityModes {
+    my ($this,$aAbilityModes) = @_;
+    $this->{abilityModes} = $aAbilityModes;
 }
 
 sub getAbilityModes {
-    my($this) = @_;
-    return @{ $this->{abilityModes} };
+    my ($this) = @_;
+    $this->{abilityModes};
 }
 
-sub usesViewAbility {
-    my($this) = @_;
-    my @result = grep { $_->isViewAbilityMode() and $_->isEnabled() }  $this->getAbilityModes ;
-    return (scalar @result > 0);
-}
-
-sub usesInsertAbilities {
-    my($this) = @_;
-    my @result = grep { ( $_->isInsertAbilityMode() or $_->isCopyAbilityMode() )  and $_->isEnabled() }  $this->getAbilityModes ;
-    return (scalar @result > 0);
-}
-
-sub usesEditAbilities {
-    my($this) = @_;
-    my @result = grep { ( $_->isEditAbilityMode() or $_->isMultiEditAbilityMode() )  and $_->isEnabled() }  $this->getAbilityModes ;
-    return (scalar @result > 0);
-}
-
-sub usesDeleteAbilities {
-    my($this) = @_;
-    my @result = grep { ( $_->isDeleteAbilityMode() or $_->isDeleteSelectedAbilityMode() )  and $_->isEnabled() }  $this->getAbilityModes ;
-    return (scalar @result > 0);
+sub hasAbilityModes {
+    my ($this) = @_;
+    return defined($this->{abilityModes});
 }
 
 1;

@@ -8,7 +8,7 @@ use Data::Printer;
 use boolean;
 
 sub new {
-    my($class) = @_;
+    my($class,$_value) = @_;
     my $this = { 
         defaultValue => undef,
         value => undef,
@@ -20,6 +20,11 @@ sub new {
     };
 
     bless($this,$class);
+
+    if($_value ne '') {
+        $this->{value} = $_value;
+    }
+
     return $this;
 }
 

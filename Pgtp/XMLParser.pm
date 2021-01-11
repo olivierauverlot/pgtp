@@ -15,6 +15,15 @@ use Model::Page;
 use Model::TablePage;
 use Model::Querypage;
 
+use Pgtp::AbilityModes;
+use Pgtp::ViewAbilityMode;
+use Pgtp::EditAbilityMode;
+use Pgtp::MultiEditAbilityMode;
+use Pgtp::InsertAbilityMode;
+use Pgtp::CopyAbilityMode;
+use Pgtp::DeleteAbilityMode;
+use Pgtp::DeleteSelectedAbilityMode;
+
 sub new {
     my($class,$_dom,$_project) = @_;
     my $this = { 
@@ -87,6 +96,19 @@ sub extractPage {
         $page = Model::QueryPage->new($node->findvalue('@fileName'),$node->findvalue('@queryName'),$node->findvalue('@shortCaption'),$node->findvalue('@caption'),$isDetails);
     }
 
+    # set the abilities
+    my $abilityModes = Pgtp::AbilityModes->new();
+    $abilityModes->addAbilityMode( Pgtp::ViewAbilityMode->new( $node->findvalue('@viewAbilityMode') ) );
+    $abilityModes->addAbilityMode( Pgtp::EditAbilityMode->new( $node->findvalue('@editAbilityMode') ) );
+    $abilityModes->addAbilityMode( Pgtp::MultiEditAbilityMode->new( $node->findvalue('@multiEditAbility') ) );
+    $abilityModes->addAbilityMode( Pgtp::InsertAbilityMode->new( $node->findvalue('@editAbilityMode') ) );
+    $abilityModes->addAbilityMode( Pgtp::CopyAbilityMode->new( $node->findvalue('@copyAbilityMode') ) );
+    $abilityModes->addAbilityMode( Pgtp::DeleteAbilityMode->new( $node->findvalue('@deleteAbilityMode') ) );
+    $abilityModes->addAbilityMode( Pgtp::DeleteSelectedAbilityMode->new( $node->findvalue('@deleteSelectedAbilityMode') ) );
+
+    $page->setAbilityModes($abilityModes);
+
+    # set the master page (if details page)
     if($isDetails) {
         $page->setMasterPage($masterPage);
     }

@@ -99,4 +99,5 @@ sub getPageFromShortCaption {
         return undef;
     }
 }
+
 return 1;
