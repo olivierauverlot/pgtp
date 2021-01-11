@@ -77,8 +77,8 @@ my $tromb = $project->getPageFromShortCaption("trombinoscope");
 is ( (defined $tromb && $tromb->getShortCaption() eq "trombinoscope"), true, "'Trombinoscope' page is defined");
 
 is ($padm->isDetailsPage(),false,"'Demandes d'admission' is a master page");
-is ($prel->isDetailsPage(),true,"'Laboratoire' is a details page");
-is ($paff->isDetailsPage(),true,"'Affectations' is a details page");
+ok ($prel->isDetailsPage(),"'Laboratoire' is a details page");
+ok ($paff->isDetailsPage(),"'Affectations' is a details page");
 
 is( scalar $tromb->getDetailsPages(),1, "'Trombinoscope' has one details page");
 is( scalar $prel->getDetailsPages(),1, "'Laboratoire' has one details page");
