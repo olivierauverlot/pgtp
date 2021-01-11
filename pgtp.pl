@@ -144,7 +144,26 @@ if(defined $projectFileName) {
 }
 
 sub help {
-    my $help = <<HELP;
+    while (<DATA>) {
+        print $_;
+    }
+    exit;
+}
+
+=pod
+my $driver  = "Pg"; 
+
+my $database = "si_dev";
+my $dsn = "DBI:$driver:dbname = $database;host = server.domain.org;port = 5432";
+my $userid = "username";
+my $password = "password";
+my $dbh = DBI->connect($dsn, $userid, $password, { RaiseError => 1 }) 
+   or die $DBI::errstr;
+
+print "Opened database successfully\n";
+=cut
+
+__DATA__
 
 NAME:
     pgtp - refactoring tool for SQL Maestro PHP Generator
@@ -185,20 +204,4 @@ DESCRIPTION:
             -h, --help
                             Display help
 
-HELP
-    say $help;
-    exit;
-}
 
-=pod
-my $driver  = "Pg"; 
-
-my $database = "si_dev";
-my $dsn = "DBI:$driver:dbname = $database;host = server.domain.org;port = 5432";
-my $userid = "username";
-my $password = "password";
-my $dbh = DBI->connect($dsn, $userid, $password, { RaiseError => 1 }) 
-   or die $DBI::errstr;
-
-print "Opened database successfully\n";
-=cut
