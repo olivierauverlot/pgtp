@@ -189,8 +189,18 @@ DESCRIPTION:
             --pages
                             Return pages list
 
+            --rename
+
+                            Rename column
+
+            --namespace 
+                            Change namespace of a table datasource
+
             --mutation
                             Refactoring a table datasource to a query datasource
+
+            --to
+                            Set the new value for refactoring
 
             -t, --table
                             Set table name for mutation

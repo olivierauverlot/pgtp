@@ -16,7 +16,8 @@ sub new {
         caption => $_caption,
         detailsPage => $_detailsPage,
         masterPage => undef,
-        detailsPages => [ ]
+        detailsPages => [ ],
+        abilityModes => [ ]
     };
 
     bless($this,$class);
@@ -68,6 +69,9 @@ sub getCaption {
     return $this->{caption}; 
 }
 
+# -------------------------------------------
+# Details pages management
+# -------------------------------------------
 sub setDetailsPages {
     my($this,$detailsPages) = @_;
     $this->{detailsPages} = $detailsPages;
@@ -76,6 +80,43 @@ sub setDetailsPages {
 sub getDetailsPages {
     my($this,$detailsPages) = @_;
     return @{ $this->{detailsPages} };
+}
+
+# -------------------------------------------
+# Abilities management
+# -------------------------------------------
+sub addAbilityMode {
+    my($this,$aAbilityMode) = @_;
+    push $this->{abilityModes},$aAbilityMode;
+}
+
+sub getAbilityModes {
+    my($this) = @_;
+    return @{ $this->{abilityModes} };
+}
+
+sub usesViewAbility {
+    my($this) = @_;
+    my @result = grep { $_->isViewAbilityMode() and $_->isEnabled() }  $this->getAbilityModes ;
+    return (scalar @result > 0);
+}
+
+sub usesInsertAbilities {
+    my($this) = @_;
+    my @result = grep { ( $_->isInsertAbilityMode() or $_->isCopyAbilityMode() )  and $_->isEnabled() }  $this->getAbilityModes ;
+    return (scalar @result > 0);
+}
+
+sub usesEditAbilities {
+    my($this) = @_;
+    my @result = grep { ( $_->isEditAbilityMode() or $_->isMultiEditAbilityMode() )  and $_->isEnabled() }  $this->getAbilityModes ;
+    return (scalar @result > 0);
+}
+
+sub usesDeleteAbilities {
+    my($this) = @_;
+    my @result = grep { ( $_->isDeleteAbilityMode() or $_->isDeleteSelectedAbilityMode() )  and $_->isEnabled() }  $this->getAbilityModes ;
+    return (scalar @result > 0);
 }
 
 1;
