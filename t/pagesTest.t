@@ -83,4 +83,5 @@ is ($paff->isDetailsPage(),true,"'Affectations' is a details page");
 is( scalar $tromb->getDetailsPages(),1, "'Trombinoscope' has one details page");
 is( scalar $prel->getDetailsPages(),1, "'Laboratoire' has one details page");
 
+is( $paff->getMasterPage()->getShortCaption(), 'Laboratoire',"'Laboratoire' is the master page of 'Affectations'");
 

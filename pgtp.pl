@@ -86,13 +86,13 @@ sub displayPages {
             $p->getDatasourceName(),
             $p->getShortCaption(),
             $p->getCaption(),
-            $p->isDetailsPage() ? 'Yes' : 'No'
+            defined $p->getMasterPage() ? $p->getMasterPage()->getShortCaption() : ''
         );
 
         push @rows, \@row;
     }
 
-    displayTableFrom( [ 'Filename', 'Type', 'Datasource', 'Short caption','Caption','Details Page' ], \@rows );
+    displayTableFrom( [ 'Filename', 'Type', 'Datasource', 'Short caption','Caption','Master page' ], \@rows );
 }
 
 # carton exec perl pgtp.pl "-v"

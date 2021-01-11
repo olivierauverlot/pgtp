@@ -15,6 +15,7 @@ sub new {
         shortCaption => $_shortCaption,
         caption => $_caption,
         detailsPage => $_detailsPage,
+        masterPage => undef,
         detailsPages => [ ]
     };
 
@@ -35,6 +36,16 @@ sub isQueryPage {
 sub isDetailsPage {
     my($this) = @_;
     return $this->{detailsPage};
+}
+
+sub setMasterPage {
+    my($this,$aMasterPage) = @_;
+    $this->{masterPage} = $aMasterPage;
+}
+
+sub getMasterPage {
+    my($this) = @_;
+    return $this->{masterPage};
 }
 
 sub getFileName {

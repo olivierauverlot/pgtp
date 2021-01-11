@@ -66,18 +66,18 @@ sub extractDatasources {
 }
 
 sub extractPagesFrom {
-    my ($this,$nodes,$isDetails) = @_;
+    my ($this,$nodes,$masterPage,$isDetails) = @_;
 
     my @pages;
 
-    foreach my $p ( @{ $nodes } ) {
-        push @pages,$this->extractPage($p,$isDetails);
+    foreach my $n ( @{ $nodes } ) {
+        push @pages,$this->extractPage($n,$masterPage,$isDetails);
     }
     return \@pages;
 }
 
 sub extractPage {
-    my ($this,$node,$isDetails) = @_;
+    my ($this,$node,$masterPage,$isDetails) = @_;
 
     my $page;
 
@@ -87,8 +87,12 @@ sub extractPage {
         $page = Model::QueryPage->new($node->findvalue('@fileName'),$node->findvalue('@queryName'),$node->findvalue('@shortCaption'),$node->findvalue('@caption'),$isDetails);
     }
 
+    if($isDetails) {
+        $page->setMasterPage($masterPage);
+    }
+
     $this->{project}->addPage($page);
-    $page->setDetailsPages($this->extractPagesFrom( \@{ $node->findnodes("Details/Detail/Page") } , true));
+    $page->setDetailsPages($this->extractPagesFrom( \@{ $node->findnodes("Details/Detail/Page") } , $page, true));
 
     return $page;
 }
@@ -96,6 +100,6 @@ sub extractPage {
 
 sub extractPages {
     my ($this) = @_;
-    $this->extractPagesFrom( \@{ $this->{dom}->findnodes('/Project/Presentation/Pages/Page') } , false );   
+    $this->extractPagesFrom( \@{ $this->{dom}->findnodes('/Project/Presentation/Pages/Page') } , undef, false );   
 }
 1;
