@@ -16,11 +16,18 @@ use Pgtp::XMLParser;
 
 use constant VERSION => '0.1 Build 20210104-1';
 
+# carton exec perl pgtp.pl "-v"
+# carton exec perl pgtp.pl "-f test.pgtp -p mypassword --mutation  -t public.personne -q sql_personnes"
+# carton exec perl pgtp.pl "--datasources -f test.pgtp"
+# carton exec perl pgtp.pl "--pages -f test.pgtp -p mypassword"
+# carton exec "perl pgtp.pl -f test.pgtp --columns Rapports"
+
 my $projectFileName;
 my $projectVersion;
 my $mutation;
 my $datasources;
 my $pages;
+my $fieldsListOfPage;
 
 my $password;
 my $table;
@@ -101,10 +108,29 @@ sub displayPages {
     displayTableFrom( [ 'Filename', 'Type', 'Datasource', 'Short caption','Caption','Master page' ], \@rows );
 }
 
-# carton exec perl pgtp.pl "-v"
-# carton exec perl pgtp.pl "-f test.pgtp -p mypassword --mutation  -t public.personne -q sql_personnes"
-# carton exec perl pgtp.pl "--datasources -f test.pgtp"
-# carton exec perl pgtp.pl "--pages -f test.pgtp -p mypassword"
+# Displays the columns of the specified page
+sub displayFieldsOfPage {
+    my ($project,$pageShortCaption) = @_;
+    my @rows;
+
+    my $page = $project->getPageFromShortCaption($pageShortCaption);
+    if(!defined($page)) {
+        exitOnError("Page '$pageShortCaption' not found");
+    }
+
+    foreach my $c ( $page->getColumnsContainer()->getColumns() ) {
+        my @row;
+
+        push @row,(
+            $c->getFieldName(),
+            $c->getCaption(),
+            $c->canSetNull() ? 'Yes' : 'No'
+        );
+        push @rows, \@row;
+    }
+
+    displayTableFrom( [ 'Fieldname', 'Caption', 'Can Set Null'], \@rows );
+}
 
 my $result = GetOptions(
     'h|help' => sub { help() },
@@ -116,7 +142,8 @@ my $result = GetOptions(
     'v|version' => sub { version() },
     'mutation' => \$mutation,
     'datasources' => \$datasources,
-    'pages' => \$pages
+    'pages' => \$pages,
+    'fields=s' => \$fieldsListOfPage
 ) or die "Invalid options passed to $0\n";
 
 if(defined $projectFileName) {
@@ -135,6 +162,10 @@ if(defined $projectFileName) {
 
         if($pages) { 
             displayPages($project);
+        }
+
+        if($fieldsListOfPage) {
+            displayFieldsOfPage($project,$fieldsListOfPage);
         }
 
         if($mutation) {
@@ -203,6 +234,10 @@ DESCRIPTION:
 
             --pages
                             Returns pages list
+            
+            --columns
+
+                            Returns columns of the specified page 
 
             --rename
 
