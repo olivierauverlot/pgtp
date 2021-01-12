@@ -33,10 +33,19 @@ sub new {
     };
     bless($this,$class);
     $this->{dom} = $_dom;
+    $this->extractProjectVersion();
     $this->extractConnectionOptions();
     $this->extractDatasources();
     $this->extractPages();
     return $this;
+}
+
+sub extractProjectVersion {
+    my($this) = @_;
+    my $edition = $this->{dom}->findvalue( '/Project/@edition' );
+
+    $this->{project}->setVersion( $this->{dom}->findvalue( '/Project/@version' ) );
+    $this->{project}->setEdition( $this->{dom}->findvalue( '/Project/@edition' ) );
 }
 
 sub extractConnectionOptions {

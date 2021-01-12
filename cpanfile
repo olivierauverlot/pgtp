@@ -1,4 +1,3 @@
-requires "App::pod2pdf" , "0";
 requires 'FindBin', ">= 1.52";
 requires "Data::Printer" , "0";
 requires 'boolean', ">= 0.46";

@@ -13,6 +13,8 @@ use Model::QueryDatasource;
 sub new {
     my($class) = @_;
     my $this = { 
+        version => undef,
+        edition => undef,
         connectionOptions => undef,
         dataSources => [ ],
         pages => [ ]
@@ -22,6 +24,37 @@ sub new {
     return $this;
 }
 
+# ---------------------------------
+# PHP Generator version
+# ---------------------------------
+sub setVersion {
+    my($this,$version) = @_;
+    $this->{version} = $version;
+}
+
+sub getVersion {
+    my($this) = @_;
+    return $this->{version};
+}
+
+sub setEdition {
+    my($this,$aString) = @_;
+    $this->{edition} = $aString;
+}
+
+sub getEdition {
+    my($this) = @_;
+    return $this->{edition};
+}
+
+sub isProfessionalEdition {
+    my($this) = @_;
+    return ($this->{edition} eq 'pro');
+}
+
+# ---------------------------------
+# Database connection
+# ---------------------------------
 sub setConnectionOptions {
     my($this,$aConnectionOptions) = @_;
     $this->{connectionOptions} = $aConnectionOptions;
