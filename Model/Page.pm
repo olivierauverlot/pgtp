@@ -19,7 +19,8 @@ sub new {
         detailsPage => $_detailsPage,
         masterPage => undef,
         detailsPages => [ ],
-        abilityModes => undef
+        abilityModesContainer => undef,
+        columnsContainer => undef
     };
 
     bless($this,$class);
@@ -87,19 +88,37 @@ sub getDetailsPages {
 # -------------------------------------------
 # Abilities management
 # -------------------------------------------
-sub setAbilityModes {
-    my ($this,$aAbilityModes) = @_;
-    $this->{abilityModes} = $aAbilityModes;
+sub setAbilityModesContainer {
+    my ($this,$aAbilityModesContainer) = @_;
+    $this->{abilityModesContainer} = $aAbilityModesContainer;
 }
 
-sub getAbilityModes {
+sub getAbilityModesContainer {
     my ($this) = @_;
-    $this->{abilityModes};
+    $this->{abilityModesContainer};
 }
 
-sub hasAbilityModes {
+sub hasAbilityModesContainer {
     my ($this) = @_;
-    return defined($this->{abilityModes});
+    return defined($this->{abilityModesContainer});
+}
+
+# -------------------------------------------
+# Columns management
+# -------------------------------------------
+sub getColumnsContainer {
+    my ($this) = @_;
+    return $this->{columnsContainer};
+}
+
+sub setColumnContainer {
+    my ($this,$aColumnsContainer) = @_;
+    $this->{columnsContainer} = $aColumnsContainer;
+}
+
+sub hasColumnsContainer {
+    my ($this) = @_;
+    return defined($this->{columnsContainer});
 }
 
 1;

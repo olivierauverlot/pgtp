@@ -25,9 +25,9 @@ my $dom = XML::LibXML->load_xml( string => $xml );
 my $parser = Pgtp::XMLParser->new($dom,$project);
 
 my $page = $project->getPageFromShortCaption("Bap");
-ok($page->hasAbilityModes(),"Page 'Bap' has ability modes");
+ok($page->hasAbilityModesContainer(),"Page 'Bap' has ability modes container");
 
-my $abilities = $page->getAbilityModes();
+my $abilities = $page->getAbilityModesContainer();
 is($abilities->hasViewAbilityMode(),false,"View ability Off");
 is($abilities->hasInsertAbilityMode(),false,"Insert ability Off");
 ok($abilities->hasCopyAbilityMode(),'Copy ability On');

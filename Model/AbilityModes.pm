@@ -33,7 +33,7 @@ sub addAbilityMode {
 
 sub getAbilityModes {
     my($this) = @_;
-    return $this->{abilityModes} ;
+    return $this->{abilityModes};
 }
 
 sub hasViewAbilityMode {

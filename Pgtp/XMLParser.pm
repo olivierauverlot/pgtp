@@ -16,7 +16,6 @@ use Model::TablePage;
 use Model::Querypage;
 
 use Model::AbilityModes;
-
 use Model::Abilities::ViewAbilityMode;
 use Model::Abilities::EditAbilityMode;
 use Model::Abilities::MultiEditAbilityMode;
@@ -24,6 +23,9 @@ use Model::Abilities::InsertAbilityMode;
 use Model::Abilities::CopyAbilityMode;
 use Model::Abilities::DeleteAbilityMode;
 use Model::Abilities::DeleteSelectedAbilityMode;
+
+use Model::ColumnsContainer;
+use Model::Column;
 
 sub new {
     my($class,$_dom,$_project) = @_;
@@ -107,6 +109,7 @@ sub extractPage {
     }
 
     # set the abilities
+    # -------------------------------------------
     my $abilityModes = Model::AbilityModes->new($page);
     $abilityModes->addAbilityMode( Model::Abilities::ViewAbilityMode->new( $node->findvalue('@viewAbilityMode') ) );
     $abilityModes->addAbilityMode( Model::Abilities::EditAbilityMode->new( $node->findvalue('@editAbilityMode') ) );
@@ -116,13 +119,29 @@ sub extractPage {
     $abilityModes->addAbilityMode( Model::Abilities::DeleteAbilityMode->new( $node->findvalue('@deleteAbilityMode') ) );
     $abilityModes->addAbilityMode( Model::Abilities::DeleteSelectedAbilityMode->new( $node->findvalue('@deleteSelectedAbilityMode') ) );
 
-    $page->setAbilityModes($abilityModes);
+    $page->setAbilityModesContainer($abilityModes);
 
     # set the master page (if details page)
+    # -------------------------------------------
     if($isDetails) {
         $page->setMasterPage($masterPage);
     }
 
+    # set the columns
+    # -------------------------------------------
+    my $columns = Model::ColumnsContainer->new($page);
+    
+    foreach my $colNode (@{ $node->findnodes('ColumnPresentations/ColumnPresentation') } ) {
+        my $column = Model::Column->new($colNode->findvalue('@fieldName'),$colNode->findvalue('@caption'));
+        if($colNode->findvalue('@canSetNull') ne '') {
+            $column->notNull();
+        }
+        $columns->addColumn($column);
+    }
+    $page->setColumnContainer($columns);
+
+    # the current page is added to the model
+    # -------------------------------------------
     $this->{project}->addPage($page);
     $page->setDetailsPages($this->extractPagesFrom( \@{ $node->findnodes("Details/Detail/Page") } , $page, true));
 
