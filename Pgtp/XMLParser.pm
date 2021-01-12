@@ -98,11 +98,11 @@ sub extractPage {
     }
 
     # set the abilities
-    my $abilityModes = Model::AbilityModes->new();
+    my $abilityModes = Model::AbilityModes->new($page);
     $abilityModes->addAbilityMode( Model::ViewAbilityMode->new( $node->findvalue('@viewAbilityMode') ) );
     $abilityModes->addAbilityMode( Model::EditAbilityMode->new( $node->findvalue('@editAbilityMode') ) );
     $abilityModes->addAbilityMode( Model::MultiEditAbilityMode->new( $node->findvalue('@multiEditAbility') ) );
-    $abilityModes->addAbilityMode( Model::InsertAbilityMode->new( $node->findvalue('@editAbilityMode') ) );
+    $abilityModes->addAbilityMode( Model::InsertAbilityMode->new( $node->findvalue('@insertAbilityMode') ) );
     $abilityModes->addAbilityMode( Model::CopyAbilityMode->new( $node->findvalue('@copyAbilityMode') ) );
     $abilityModes->addAbilityMode( Model::DeleteAbilityMode->new( $node->findvalue('@deleteAbilityMode') ) );
     $abilityModes->addAbilityMode( Model::DeleteSelectedAbilityMode->new( $node->findvalue('@deleteSelectedAbilityMode') ) );

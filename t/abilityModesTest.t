@@ -28,7 +28,7 @@ my $page = $project->getPageFromShortCaption("Bap");
 ok($page->hasAbilityModes(),"Page 'Bap' has ability modes");
 
 my $abilities = $page->getAbilityModes();
-is($abilities->hasViewAbilityMode(),false,"Vew ability Off");
+is($abilities->hasViewAbilityMode(),false,"View ability Off");
 is($abilities->hasInsertAbilityMode(),false,"Insert ability Off");
 ok($abilities->hasCopyAbilityMode(),'Copy ability On');
 ok($abilities->hasEditAbilityMode(),'Edit ability On');

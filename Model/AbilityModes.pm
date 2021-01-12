@@ -33,67 +33,57 @@ sub addAbilityMode {
 
 sub getAbilityModes {
     my($this) = @_;
-    return @{ $this->{abilityModes} };
+    return $this->{abilityModes} ;
 }
 
 sub hasViewAbilityMode {
     my($this) = @_;
-    my @result = grep { $_->isViewAbilityMode() and $_->isEnabled() }  $this->getAbilityModes ;
-    return (scalar @result > 0);
+    return grep { $_->isViewAbilityMode() and $_->isEnabled() }  @{ $this->getAbilityModes } ;
 }
 
 sub hasInsertAbilityMode {
     my($this) = @_;
-    my @result = grep { $_->isInsertAbilityMode() and $_->isEnabled() }  $this->getAbilityModes ;
-    return (scalar @result > 0);
+    return grep { $_->isInsertAbilityMode() and $_->isEnabled() } @{ $this->getAbilityModes } ;
 }
 
 sub hasCopyAbilityMode {
     my($this) = @_;
-    my @result = grep { $_->isCopyAbilityMode() and $_->isEnabled() }  $this->getAbilityModes ;
-    return (scalar @result > 0);
+    return grep { $_->isCopyAbilityMode() and $_->isEnabled() }  @{ $this->getAbilityModes } ;
 }
 
 sub hasInsertAbilityModes {
     my($this) = @_;
-    my @result = grep { ( $_->isInsertAbilityMode() or $_->isCopyAbilityMode() )  and $_->isEnabled() }  $this->getAbilityModes ;
-    return (scalar @result > 0);
+    return grep { ( $_->isInsertAbilityMode() or $_->isCopyAbilityMode() )  and $_->isEnabled() }  @{ $this->getAbilityModes } ;
 }
 
 sub hasEditAbilityMode {
     my($this) = @_;
-    my @result = grep { $_->isEditAbilityMode() and $_->isEnabled() }  $this->getAbilityModes ;
-    return (scalar @result > 0);
+    return grep { $_->isEditAbilityMode() and $_->isEnabled() }  @{ $this->getAbilityModes } ;
 }
 
 sub hasMultiEditAbilityMode {
     my($this) = @_;
-    my @result = grep { $_->isMultiEditAbilityMode() and $_->isEnabled() }  $this->getAbilityModes ;
-    return (scalar @result > 0);
+    return grep { $_->isMultiEditAbilityMode() and $_->isEnabled() }  @{ $this->getAbilityModes } ;
 }
 
 sub hasEditAbilitieModes {
     my($this) = @_;
-    my @result = grep { ( $_->isEditAbilityMode() or $_->isMultiEditAbilityMode() )  and $_->isEnabled() }  $this->getAbilityModes ;
-    return (scalar @result > 0);
+    return grep { ( $_->isEditAbilityMode() or $_->isMultiEditAbilityMode() )  and $_->isEnabled() }  @{ $this->getAbilityModes } ;
 }
 
 sub hasDeleteAbilityMode {
     my($this) = @_;
-    my @result = grep { $_->isDeleteAbilityMode() and $_->isEnabled() }  $this->getAbilityModes ;
-    return (scalar @result > 0);
+    return grep { $_->isDeleteAbilityMode() and $_->isEnabled() }  @{ $this->getAbilityModes } ;
 }
 
 sub hasDeleteSelectedAbilityMode {
     my($this) = @_;
-    my @result = grep { $_->isDeleteSelectedAbilityMode() and $_->isEnabled() }  $this->getAbilityModes ;
-    return (scalar @result > 0);
+    return grep { $_->isDeleteSelectedAbilityMode() and $_->isEnabled() }  @{ $this->getAbilityModes } ;
 }
 
 sub hasDeleteAbilityModes {
     my($this) = @_;
-    my @result = grep { ( $_->isDeleteAbilityMode() or $_->isDeleteSelectedAbilityMode() )  and $_->isEnabled() }  $this->getAbilityModes ;
-    return (scalar @result > 0);
+    return grep { ( $_->isDeleteAbilityMode() or $_->isDeleteSelectedAbilityMode() )  and $_->isEnabled() }  @{  $this->getAbilityModes } ;
 }
 
 1;
