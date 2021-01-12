@@ -13,8 +13,8 @@ use Model::QueryDatasource;
 sub new {
     my($class) = @_;
     my $this = { 
-        version => undef,
-        edition => undef,
+        version => '',
+        edition => '',
         connectionOptions => undef,
         dataSources => [ ],
         pages => [ ]

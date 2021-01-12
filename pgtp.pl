@@ -17,6 +17,7 @@ use Pgtp::XMLParser;
 use constant VERSION => '0.1 Build 20210104-1';
 
 my $projectFileName;
+my $projectVersion;
 my $mutation;
 my $datasources;
 my $pages;
@@ -50,6 +51,11 @@ sub displayTableFrom {
     print "\n";
     say $_ for $table->render;
     exit(1);
+}
+
+sub displayProjectVersion {
+    my ($project) = @_;
+    say $project->getVersion() . ' ' . $project->getEdition(); 
 }
 
 sub displayDatasources {
@@ -104,6 +110,7 @@ my $result = GetOptions(
     'h|help' => sub { help() },
     'f|from=s' => \$projectFileName,
     'p|password=s' => \$password,
+    'projectVersion' => \$projectVersion,
     't|table=s' => \$table,
     'q|query=s' => \$query,
     'v|version' => sub { version() },
@@ -118,9 +125,14 @@ if(defined $projectFileName) {
         my $dom = XML::LibXML->load_xml( location => $projectFileName );
         my $parser = Pgtp::XMLParser->new($dom,$project);
         
+        if($projectVersion) {
+            displayProjectVersion($project);
+        }
+
         if($datasources) { 
             displayDatasources($project);
         }
+
         if($pages) { 
             displayPages($project);
         }
@@ -183,11 +195,14 @@ DESCRIPTION:
             -p, --password
                             Set database password
 
+            --projectVersion
+                            Returns the project file version
+
             --datasources
-                            Return datasources list
+                            Returns datasources list
 
             --pages
-                            Return pages list
+                            Returns pages list
 
             --rename
 
