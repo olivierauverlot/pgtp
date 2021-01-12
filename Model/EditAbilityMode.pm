@@ -1,4 +1,4 @@
-package Pgtp::CopyAbilityMode;
+package Model::EditAbilityMode;
 
 use strict;
 use warnings;
@@ -7,9 +7,9 @@ use 5.010;
 use Data::Printer;
 use boolean;
 
-use Pgtp::AbilityMode;
+use Model::AbilityMode;
 
-our @ISA = qw(Pgtp::AbilityMode);
+our @ISA = qw(Model::AbilityMode);
 
 sub new {
     my($class,$_value) = @_;
@@ -20,7 +20,7 @@ sub new {
     return $this;
 }
 
-sub isCopyAbilityMode {
+sub isEditAbilityMode {
     my ($this) = @_;
     return true;
 }

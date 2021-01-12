@@ -15,14 +15,15 @@ use Model::Page;
 use Model::TablePage;
 use Model::Querypage;
 
-use Pgtp::AbilityModes;
-use Pgtp::ViewAbilityMode;
-use Pgtp::EditAbilityMode;
-use Pgtp::MultiEditAbilityMode;
-use Pgtp::InsertAbilityMode;
-use Pgtp::CopyAbilityMode;
-use Pgtp::DeleteAbilityMode;
-use Pgtp::DeleteSelectedAbilityMode;
+use Model::AbilityModes;
+
+use Model::ViewAbilityMode;
+use Model::EditAbilityMode;
+use Model::MultiEditAbilityMode;
+use Model::InsertAbilityMode;
+use Model::CopyAbilityMode;
+use Model::DeleteAbilityMode;
+use Model::DeleteSelectedAbilityMode;
 
 sub new {
     my($class,$_dom,$_project) = @_;
@@ -97,14 +98,14 @@ sub extractPage {
     }
 
     # set the abilities
-    my $abilityModes = Pgtp::AbilityModes->new();
-    $abilityModes->addAbilityMode( Pgtp::ViewAbilityMode->new( $node->findvalue('@viewAbilityMode') ) );
-    $abilityModes->addAbilityMode( Pgtp::EditAbilityMode->new( $node->findvalue('@editAbilityMode') ) );
-    $abilityModes->addAbilityMode( Pgtp::MultiEditAbilityMode->new( $node->findvalue('@multiEditAbility') ) );
-    $abilityModes->addAbilityMode( Pgtp::InsertAbilityMode->new( $node->findvalue('@editAbilityMode') ) );
-    $abilityModes->addAbilityMode( Pgtp::CopyAbilityMode->new( $node->findvalue('@copyAbilityMode') ) );
-    $abilityModes->addAbilityMode( Pgtp::DeleteAbilityMode->new( $node->findvalue('@deleteAbilityMode') ) );
-    $abilityModes->addAbilityMode( Pgtp::DeleteSelectedAbilityMode->new( $node->findvalue('@deleteSelectedAbilityMode') ) );
+    my $abilityModes = Model::AbilityModes->new();
+    $abilityModes->addAbilityMode( Model::ViewAbilityMode->new( $node->findvalue('@viewAbilityMode') ) );
+    $abilityModes->addAbilityMode( Model::EditAbilityMode->new( $node->findvalue('@editAbilityMode') ) );
+    $abilityModes->addAbilityMode( Model::MultiEditAbilityMode->new( $node->findvalue('@multiEditAbility') ) );
+    $abilityModes->addAbilityMode( Model::InsertAbilityMode->new( $node->findvalue('@editAbilityMode') ) );
+    $abilityModes->addAbilityMode( Model::CopyAbilityMode->new( $node->findvalue('@copyAbilityMode') ) );
+    $abilityModes->addAbilityMode( Model::DeleteAbilityMode->new( $node->findvalue('@deleteAbilityMode') ) );
+    $abilityModes->addAbilityMode( Model::DeleteSelectedAbilityMode->new( $node->findvalue('@deleteSelectedAbilityMode') ) );
 
     $page->setAbilityModes($abilityModes);
 

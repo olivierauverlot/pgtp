@@ -1,4 +1,4 @@
-package Pgtp::ViewAbilityMode;
+package Model::InsertAbilityMode;
 
 use strict;
 use warnings;
@@ -7,9 +7,9 @@ use 5.010;
 use Data::Printer;
 use boolean;
 
-use Pgtp::AbilityMode;
+use Model::AbilityMode;
 
-our @ISA = qw(Pgtp::AbilityMode);
+our @ISA = qw(Model::AbilityMode);
 
 sub new {
     my($class,$_value) = @_;
@@ -20,7 +20,7 @@ sub new {
     return $this;
 }
 
-sub isViewAbilityMode {
+sub isInsertAbilityMode {
     my ($this) = @_;
     return true;
 }

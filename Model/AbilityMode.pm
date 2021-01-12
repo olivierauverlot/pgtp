@@ -1,4 +1,4 @@
-package Pgtp::AbilityMode;
+package Model::AbilityMode;
 
 use strict;
 use warnings;

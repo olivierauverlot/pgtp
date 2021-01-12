@@ -1,4 +1,4 @@
-package Pgtp::deleteAbilityMode;
+package Model::CopyAbilityMode;
 
 use strict;
 use warnings;
@@ -7,20 +7,20 @@ use 5.010;
 use Data::Printer;
 use boolean;
 
-use Pgtp::AbilityMode;
+use Model::AbilityMode;
 
-our @ISA = qw(Pgtp::AbilityMode);
+our @ISA = qw(Model::AbilityMode);
 
 sub new {
     my($class,$_value) = @_;
     my $this = $class->SUPER::new($_value);
-    $this->{defaultValue} = $this->{DISABLED};
+    $this->{defaultValue} = $this->{SEPARATED_PAGE};
 
     bless($this,$class);
     return $this;
 }
 
-sub isDeleteAbilityMode {
+sub isCopyAbilityMode {
     my ($this) = @_;
     return true;
 }

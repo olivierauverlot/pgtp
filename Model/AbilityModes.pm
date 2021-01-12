@@ -1,4 +1,4 @@
-package Pgtp::AbilityModes;
+package Model::AbilityModes;
 
 use strict;
 use warnings;
@@ -7,13 +7,13 @@ use 5.010;
 use Data::Printer;
 use boolean;
 
-use Pgtp::ViewAbilityMode;
-use Pgtp::EditAbilityMode;
-use Pgtp::MultiEditAbilityMode;
-use Pgtp::InsertAbilityMode;
-use Pgtp::CopyAbilityMode;
-use Pgtp::deleteAbilityMode;
-use Pgtp::DeleteSelectedAbilityMode;
+use Model::ViewAbilityMode;
+use Model::EditAbilityMode;
+use Model::MultiEditAbilityMode;
+use Model::InsertAbilityMode;
+use Model::CopyAbilityMode;
+use Model::DeleteAbilityMode;
+use Model::DeleteSelectedAbilityMode;
 
 sub new {
     my($class,$aParent) = @_;

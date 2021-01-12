@@ -7,7 +7,7 @@ use 5.010;
 use Data::Printer;
 use boolean;
 
-use Pgtp::AbilityModes;
+use Model::AbilityModes;
 
 sub new {
     my($class,$_fileName,$_datasourceName,$_shortCaption,$_caption,$_detailsPage) = @_;
