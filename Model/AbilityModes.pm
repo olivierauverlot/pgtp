@@ -7,13 +7,13 @@ use 5.010;
 use Data::Printer;
 use boolean;
 
-use Model::ViewAbilityMode;
-use Model::EditAbilityMode;
-use Model::MultiEditAbilityMode;
-use Model::InsertAbilityMode;
-use Model::CopyAbilityMode;
-use Model::DeleteAbilityMode;
-use Model::DeleteSelectedAbilityMode;
+use Model::Abilities::ViewAbilityMode;
+use Model::Abilities::EditAbilityMode;
+use Model::Abilities::MultiEditAbilityMode;
+use Model::Abilities::InsertAbilityMode;
+use Model::Abilities::CopyAbilityMode;
+use Model::Abilities::DeleteAbilityMode;
+use Model::Abilities::DeleteSelectedAbilityMode;
 
 sub new {
     my($class,$aParent) = @_;

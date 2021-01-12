@@ -1,4 +1,4 @@
-package Model::AbilityMode;
+package Model::Abilities::AbilityMode;
 
 use strict;
 use warnings;

@@ -17,13 +17,13 @@ use Model::Querypage;
 
 use Model::AbilityModes;
 
-use Model::ViewAbilityMode;
-use Model::EditAbilityMode;
-use Model::MultiEditAbilityMode;
-use Model::InsertAbilityMode;
-use Model::CopyAbilityMode;
-use Model::DeleteAbilityMode;
-use Model::DeleteSelectedAbilityMode;
+use Model::Abilities::ViewAbilityMode;
+use Model::Abilities::EditAbilityMode;
+use Model::Abilities::MultiEditAbilityMode;
+use Model::Abilities::InsertAbilityMode;
+use Model::Abilities::CopyAbilityMode;
+use Model::Abilities::DeleteAbilityMode;
+use Model::Abilities::DeleteSelectedAbilityMode;
 
 sub new {
     my($class,$_dom,$_project) = @_;
@@ -99,13 +99,13 @@ sub extractPage {
 
     # set the abilities
     my $abilityModes = Model::AbilityModes->new($page);
-    $abilityModes->addAbilityMode( Model::ViewAbilityMode->new( $node->findvalue('@viewAbilityMode') ) );
-    $abilityModes->addAbilityMode( Model::EditAbilityMode->new( $node->findvalue('@editAbilityMode') ) );
-    $abilityModes->addAbilityMode( Model::MultiEditAbilityMode->new( $node->findvalue('@multiEditAbility') ) );
-    $abilityModes->addAbilityMode( Model::InsertAbilityMode->new( $node->findvalue('@insertAbilityMode') ) );
-    $abilityModes->addAbilityMode( Model::CopyAbilityMode->new( $node->findvalue('@copyAbilityMode') ) );
-    $abilityModes->addAbilityMode( Model::DeleteAbilityMode->new( $node->findvalue('@deleteAbilityMode') ) );
-    $abilityModes->addAbilityMode( Model::DeleteSelectedAbilityMode->new( $node->findvalue('@deleteSelectedAbilityMode') ) );
+    $abilityModes->addAbilityMode( Model::Abilities::ViewAbilityMode->new( $node->findvalue('@viewAbilityMode') ) );
+    $abilityModes->addAbilityMode( Model::Abilities::EditAbilityMode->new( $node->findvalue('@editAbilityMode') ) );
+    $abilityModes->addAbilityMode( Model::Abilities::MultiEditAbilityMode->new( $node->findvalue('@multiEditAbility') ) );
+    $abilityModes->addAbilityMode( Model::Abilities::InsertAbilityMode->new( $node->findvalue('@insertAbilityMode') ) );
+    $abilityModes->addAbilityMode( Model::Abilities::CopyAbilityMode->new( $node->findvalue('@copyAbilityMode') ) );
+    $abilityModes->addAbilityMode( Model::Abilities::DeleteAbilityMode->new( $node->findvalue('@deleteAbilityMode') ) );
+    $abilityModes->addAbilityMode( Model::Abilities::DeleteSelectedAbilityMode->new( $node->findvalue('@deleteSelectedAbilityMode') ) );
 
     $page->setAbilityModes($abilityModes);
 

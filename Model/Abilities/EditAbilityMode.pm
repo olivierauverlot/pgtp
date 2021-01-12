@@ -1,4 +1,4 @@
-package Model::InsertAbilityMode;
+package Model::Abilities::EditAbilityMode;
 
 use strict;
 use warnings;
@@ -7,9 +7,9 @@ use 5.010;
 use Data::Printer;
 use boolean;
 
-use Model::AbilityMode;
+use Model::Abilities::AbilityMode;
 
-our @ISA = qw(Model::AbilityMode);
+our @ISA = qw(Model::Abilities::AbilityMode);
 
 sub new {
     my($class,$_value) = @_;
@@ -20,7 +20,7 @@ sub new {
     return $this;
 }
 
-sub isInsertAbilityMode {
+sub isEditAbilityMode {
     my ($this) = @_;
     return true;
 }
