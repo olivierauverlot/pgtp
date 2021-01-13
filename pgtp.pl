@@ -7,19 +7,19 @@ use FindBin;
 use lib "$FindBin::RealBin/.";
 use Getopt::Long;
 use Data::Printer;
-use DBI;
 use XML::LibXML;
 use Term::Table;
 
 use Model::Project;
 use Pgtp::XMLParser;
+use Pgtp::FieldsOfPageReport;
 
-use constant VERSION => '0.1 Build 20210104-1';
+use constant VERSION => '0.1 Build 20210112-1';
 
 # carton exec perl pgtp.pl "-v"
-# carton exec perl pgtp.pl "-f test.pgtp -p mypassword --mutation  -t public.personne -q sql_personnes"
-# carton exec perl pgtp.pl "--datasources -f test.pgtp"
-# carton exec perl pgtp.pl "--pages -f test.pgtp -p mypassword"
+# carton exec perl pgtp.pl "-f test.pgtp --mutation  -t public.personne -q sql_personnes"
+# carton exec perl pgtp.pl "-f test.pgtp --datasources"
+# carton exec perl pgtp.pl "-f test.pgtp --pages"
 # carton exec "perl pgtp.pl -f test.pgtp --columns Rapports"
 
 my $projectFileName;
@@ -27,9 +27,9 @@ my $projectVersion;
 my $mutation;
 my $datasources;
 my $pages;
+my $abilityModes;
 my $fieldsListOfPage;
 
-my $password;
 my $table;
 my $query;
 
@@ -83,7 +83,6 @@ sub displayDatasources {
     }
 
     displayTableFrom( [ 'Name', 'Type', 'Top level page', 'Primary Key fields'], \@rows );
-
 }
 
 sub displayPages {
@@ -108,8 +107,8 @@ sub displayPages {
     displayTableFrom( [ 'Filename', 'Type', 'Datasource', 'Short caption','Caption','Master page' ], \@rows );
 }
 
-# Displays the columns of the specified page
-sub displayFieldsOfPage {
+# Displays the ability modes of the specified page
+sub displayAbilityModesOfPage {
     my ($project,$pageShortCaption) = @_;
     my @rows;
 
@@ -118,24 +117,25 @@ sub displayFieldsOfPage {
         exitOnError("Page '$pageShortCaption' not found");
     }
 
-    foreach my $c ( $page->getColumnsContainer()->getColumns() ) {
-        my @row;
+    my @row;
+    my $abilities = $page->getAbilityModesContainer();
 
-        push @row,(
-            $c->getFieldName(),
-            $c->getCaption(),
-            $c->canSetNull() ? 'Yes' : 'No'
-        );
-        push @rows, \@row;
-    }
-
-    displayTableFrom( [ 'Fieldname', 'Caption', 'Can Set Null'], \@rows );
+    push @row,(
+            $abilities->hasViewAbilityMode() ? 'Yes' : 'No',
+            $abilities->hasInsertAbilityMode() ? 'Yes' : 'No',
+            $abilities->hasCopyAbilityMode() ? 'Yes' : 'No',
+            $abilities->hasEditAbilityMode() ? 'Yes' : 'No',
+            $abilities->hasMultiEditAbilityMode() ? 'Yes' : 'No',
+            $abilities->hasDeleteAbilityMode() ? 'Yes' : 'No',
+            $abilities->hasDeleteSelectedAbilityMode() ? 'Yes' : 'No'
+    );
+    push @rows, \@row;
+    displayTableFrom( [ 'View','Insert','Copy','Edit','MultiEdit','Delete','DeleteSelected'], \@rows );
 }
 
 my $result = GetOptions(
     'h|help' => sub { help() },
     'f|from=s' => \$projectFileName,
-    'p|password=s' => \$password,
     'projectVersion' => \$projectVersion,
     't|table=s' => \$table,
     'q|query=s' => \$query,
@@ -143,6 +143,7 @@ my $result = GetOptions(
     'mutation' => \$mutation,
     'datasources' => \$datasources,
     'pages' => \$pages,
+    'abilityModes=s' => \$abilityModes,
     'fields=s' => \$fieldsListOfPage
 ) or die "Invalid options passed to $0\n";
 
@@ -164,19 +165,20 @@ if(defined $projectFileName) {
             displayPages($project);
         }
 
+        if($abilityModes) {
+            displayAbilityModesOfPage($project,$abilityModes);
+        }
+
         if($fieldsListOfPage) {
-            displayFieldsOfPage($project,$fieldsListOfPage);
+            my $report = Pgtp::FieldsOfPageReport->new($project);
+            $report->setPageShortCaption($fieldsListOfPage);
+            $report->output();
         }
 
         if($mutation) {
-            if(defined $password) {
-                $project->getConnectionOptions()->setPassword($password);
-                if(defined $table && defined $query) {
-                } else {
-                    exitOnError "You must indicate table name and query name";
-                }
+            if(defined $table && defined $query) {
             } else {
-                exitOnError "No database password";
+                exitOnError "You must indicate table name and query name";
             }
         }
     } else {
@@ -192,19 +194,6 @@ sub help {
     }
     exit;
 }
-
-=pod
-my $driver  = "Pg"; 
-
-my $database = "si_dev";
-my $dsn = "DBI:$driver:dbname = $database;host = server.domain.org;port = 5432";
-my $userid = "username";
-my $password = "password";
-my $dbh = DBI->connect($dsn, $userid, $password, { RaiseError => 1 }) 
-   or die $DBI::errstr;
-
-print "Opened database successfully\n";
-=cut
 
 __DATA__
 
@@ -222,9 +211,6 @@ DESCRIPTION:
 
             -f, --from
                             Set project file name
-            
-            -p, --password
-                            Set database password
 
             --projectVersion
                             Returns the project file version
@@ -235,7 +221,10 @@ DESCRIPTION:
             --pages
                             Returns pages list
             
-            --columns
+            --abilityModes
+                            Returns ability modes of the specified page
+            
+            --fields
 
                             Returns columns of the specified page 
 
