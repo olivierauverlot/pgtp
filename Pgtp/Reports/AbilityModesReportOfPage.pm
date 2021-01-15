@@ -1,4 +1,4 @@
-package Pgtp::AbilityModesReportOfPage;
+package Pgtp::Reports::AbilityModesReportOfPage;
 
 use strict;
 use warnings;
@@ -6,11 +6,11 @@ use utf8;
 use 5.010;
 use boolean;
 
-use Pgtp::ReportOfPage;
+use Pgtp::Reports::ReportOfPage;
 
 # Displays the ability modes of the specified page
 
-our @ISA = qw(Pgtp::ReportOfPage);
+our @ISA = qw(Pgtp::Reports::ReportOfPage);
 
 sub new {
     my($class,$_project,$_pageShortCaption) = @_;

@@ -1,4 +1,4 @@
-package Pgtp::DatasourcesReport;
+package Pgtp::Reports::DatasourcesReport;
 
 use strict;
 use warnings;
@@ -10,7 +10,7 @@ use Model::Project;
 
 # Displays the datasources of the specified page
 
-our @ISA = qw(Pgtp::Report);
+our @ISA = qw(Pgtp::Reports::Report);
 
 sub new {
     my($class,$_project) = @_;

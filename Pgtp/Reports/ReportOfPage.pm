@@ -1,4 +1,4 @@
-package Pgtp::ReportOfPage;
+package Pgtp::Reports::ReportOfPage;
 
 use strict;
 use warnings;
@@ -6,9 +6,9 @@ use utf8;
 use 5.010;
 use boolean;
 
-use Pgtp::Report;
+use Pgtp::Reports::Report;
 
-our @ISA = qw(Pgtp::Report);
+our @ISA = qw(Pgtp::Reports::Report);
 
 sub new {
     my($class,$_project,$_pageShortCaption) = @_;

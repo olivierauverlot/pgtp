@@ -1,4 +1,4 @@
-package Pgtp::Report;
+package Pgtp::Reports::Report;
 
 use strict;
 use warnings;

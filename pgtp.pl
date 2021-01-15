@@ -11,12 +11,11 @@ use XML::LibXML;
 use Term::Table;
 
 use Model::Project;
-use Pgtp::MessageStatus;
 use Pgtp::XMLParser;
-use Pgtp::FieldsOfPageReport;
-use Pgtp::DatasourcesReport;
-use Pgtp::PagesReport;
-use Pgtp::AbilityModesReportOfPage;
+use Pgtp::Reports::FieldsOfPageReport;
+use Pgtp::Reports::DatasourcesReport;
+use Pgtp::Reports::PagesReport;
+use Pgtp::Reports::AbilityModesReportOfPage;
 
 use constant VERSION => '0.1 Build 20210112-1';
 
@@ -77,19 +76,19 @@ if(defined $projectFileName) {
         }
 
         if($datasources) { 
-            Pgtp::DatasourcesReport->new($project)->output();
+            Pgtp::Reports::DatasourcesReport->new($project)->output();
         }
 
         if($pages) { 
-            Pgtp::PagesReport->new($project)->output();
+            Pgtp::Reports::PagesReport->new($project)->output();
         }
 
         if($abilityModes) {
-            Pgtp::AbilityModesReportOfPage->new($project,$abilityModes)->output();
+            Pgtp::Reports::AbilityModesReportOfPage->new($project,$abilityModes)->output();
         }
 
         if($fieldsListOfPage) {
-            Pgtp::FieldsOfPageReport->new($project,$fieldsListOfPage)->output();
+            Pgtp::Reports::FieldsOfPageReport->new($project,$fieldsListOfPage)->output();
         }
 
         if($mutation) {

@@ -1,4 +1,4 @@
-package Pgtp::PagesReport;
+package Pgtp::Reports::PagesReport;
 
 use strict;
 use warnings;
@@ -10,7 +10,7 @@ use Model::Project;
 
 # Displays the pages of the project
 
-our @ISA = qw(Pgtp::Report);
+our @ISA = qw(Pgtp::Reports::Report);
 
 sub new {
     my($class,$_project) = @_;
