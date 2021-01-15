@@ -1,4 +1,4 @@
-package Pgtp::DatasourcesReport;
+package Pgtp::PagesReport;
 
 use strict;
 use warnings;
@@ -13,7 +13,7 @@ use Term::Table;
 use Pgtp::Report;
 use Model::Project;
 
-# Displays the datasources of the specified page
+# Displays the pages of the project
 
 our @ISA = qw(Pgtp::Report);
 
@@ -21,7 +21,7 @@ sub new {
     my($class,$_project) = @_;
     my $this = $class->SUPER::new($_project);
 
-    $this->{header} = [ 'Name', 'Type', 'Top level page', 'Primary Key fields'];
+    $this->{header} = [ 'Filename', 'Type', 'Datasource', 'Short caption','Caption','Master page' ];
     bless($this,$class);
     return $this;
 }
@@ -29,14 +29,16 @@ sub new {
 sub extractData() {
     my ($this) = @_;
 
-    foreach my $dt ( $this->{project}->getDatasources() ) {
+    foreach my $p ( $this->{project}->getPages() ) {
         my @row;
 
         push @row,(
-            $dt->getName(),
-            $dt->getType(),
-            $dt->isTopLevelPage() ? 'Yes' : 'No',
-            join(',',$dt->getPrimaryKeyFields())
+            $p->getFileName(),
+            $p->getType(),
+            $p->getDatasourceName(),
+            $p->getShortCaption(),
+            $p->getCaption(),
+            defined $p->getMasterPage() ? $p->getMasterPage()->getShortCaption() : ''
         );
 
         push @{ $this->{rows} }, \@row;

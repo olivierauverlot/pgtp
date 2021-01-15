@@ -10,37 +10,26 @@ use lib "$FindBin::RealBin/.";
 use Data::Printer;
 use Term::Table;
 
-use Pgtp::Report;
+use Pgtp::ReportOfPage;
 use Model::Project;
 
 # Displays the columns of the specified page
 
-our @ISA = qw(Pgtp::Report);
+our @ISA = qw(Pgtp::ReportOfPage);
 
 sub new {
-    my($class,$_project) = @_;
-    my $this = $class->SUPER::new($_project);
-    $this->{pageShortCaption} = '';
+    my($class,$_project,$_pageShortCaption) = @_;
+    my $this = $class->SUPER::new($_project,$_pageShortCaption);
 
     $this->{header} = [ 'Fieldname', 'Caption', 'Can set NULL'];
     bless($this,$class);
     return $this;
 }
 
-sub setPageShortCaption {
-    my ($this,$_pageShortCaption) = @_;
-    $this->{pageShortCaption} = $_pageShortCaption;
-}
-
 sub extractData() {
     my ($this) = @_;
-    
-    my $page = $this->{project}->getPageFromShortCaption( $this->{pageShortCaption} );
-    if(!defined($page)) {
-        exitOnError("Page '$this->{pageShortCaption}' not found");
-    }
 
-    foreach my $c ( $page->getColumnsContainer()->getColumns() ) {
+    foreach my $c ( $this->{page}->getColumnsContainer()->getColumns() ) {
         my @row;
 
         push @row,(
