@@ -25,6 +25,12 @@ sub new {
     return $this;
 }
 
+sub exitOnError {
+    my ($this,$msg) = @_;
+    say $msg;
+    exit(0);
+}
+
 sub extractData: Abstract;
 
 sub output {

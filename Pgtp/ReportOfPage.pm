@@ -16,7 +16,7 @@ sub new {
 
     $this->{page} = $this->{project}->getPageFromShortCaption( $_pageShortCaption );
     if(!defined($this->{page})) {
-        exitOnError("Page '$_pageShortCaption' not found");
+        $this->exitOnError("Page '$_pageShortCaption' not found");
     }
 
     bless($this,$class);

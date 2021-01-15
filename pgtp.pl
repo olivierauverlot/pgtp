@@ -11,6 +11,7 @@ use XML::LibXML;
 use Term::Table;
 
 use Model::Project;
+use Pgtp::MessageStatus;
 use Pgtp::XMLParser;
 use Pgtp::FieldsOfPageReport;
 use Pgtp::DatasourcesReport;
@@ -36,14 +37,14 @@ my $fieldsListOfPage;
 my $table;
 my $query;
 
-sub version {
-    print "\n" . VERSION . "\n";
-}
-
 sub exitOnError {
     my ($msg) = @_;
     say $msg;
     exit(0);
+}
+
+sub version {
+    print "\n" . VERSION . "\n";
 }
 
 sub displayProjectVersion {
