@@ -13,6 +13,9 @@ use Term::Table;
 use Model::Project;
 use Pgtp::XMLParser;
 use Pgtp::FieldsOfPageReport;
+use Pgtp::DatasourcesReport;
+use Pgtp::PagesReport;
+use Pgtp::AbilityModesReportOfPage;
 
 use constant VERSION => '0.1 Build 20210112-1';
 
@@ -43,94 +46,9 @@ sub exitOnError {
     exit(0);
 }
 
-sub displayTableFrom {
-    my ($header,$rows) = @_;
-
-    my $table = Term::Table->new(
-        max_width      => 160,    
-        pad            => 4,     
-        allow_overflow => 0,    
-        collapse       => 1, 
-        header => $header,
-        rows => $rows
-    );
-
-    print "\n";
-    say $_ for $table->render;
-    exit(1);
-}
-
 sub displayProjectVersion {
     my ($project) = @_;
     say $project->getVersion() . ' ' . $project->getEdition(); 
-}
-
-sub displayDatasources {
-    my ($project) = @_;
-    my @rows;
-
-    foreach my $dt ( $project->getDatasources() ) {
-        my @row;
-
-        push @row,(
-            $dt->getName(),
-            $dt->getType(),
-            $dt->isTopLevelPage() ? 'Yes' : 'No',
-            join(',',$dt->getPrimaryKeyFields())
-        );
-
-        push @rows, \@row;
-    }
-
-    displayTableFrom( [ 'Name', 'Type', 'Top level page', 'Primary Key fields'], \@rows );
-}
-
-sub displayPages {
-    my ($project) = @_;
-    my @rows;
-
-    foreach my $p ( $project->getPages() ) {
-        my @row;
-
-        push @row,(
-            $p->getFileName(),
-            $p->getType(),
-            $p->getDatasourceName(),
-            $p->getShortCaption(),
-            $p->getCaption(),
-            defined $p->getMasterPage() ? $p->getMasterPage()->getShortCaption() : ''
-        );
-
-        push @rows, \@row;
-    }
-
-    displayTableFrom( [ 'Filename', 'Type', 'Datasource', 'Short caption','Caption','Master page' ], \@rows );
-}
-
-# Displays the ability modes of the specified page
-sub displayAbilityModesOfPage {
-    my ($project,$pageShortCaption) = @_;
-    my @rows;
-
-    my $page = $project->getPageFromShortCaption($pageShortCaption);
-    if(!defined($page)) {
-        exitOnError("Page '$pageShortCaption' not found");
-    }
-
-    my @row;
-    my $abilities = $page->getAbilityModesContainer();
-
-    push @row,(
-            $abilities->hasViewAbilityMode() ? 'Yes' : 'No',
-            $abilities->hasInsertAbilityMode() ? 'Yes' : 'No',
-            $abilities->hasCopyAbilityMode() ? 'Yes' : 'No',
-            $abilities->hasEditAbilityMode() ? 'Yes' : 'No',
-            $abilities->hasMultiEditAbilityMode() ? 'Yes' : 'No',
-            $abilities->hasDeleteAbilityMode() ? 'Yes' : 'No',
-            $abilities->hasDeleteSelectedAbilityMode() ? 'Yes' : 'No'
-    );
-    push @rows, \@row;
-    displayTableFrom( [ 'View','Insert','Copy','Edit','MultiEdit','Delete','DeleteSelected'], \@rows );
 }
 
 my $result = GetOptions(
@@ -158,21 +76,19 @@ if(defined $projectFileName) {
         }
 
         if($datasources) { 
-            displayDatasources($project);
+            Pgtp::DatasourcesReport->new($project)->output();
         }
 
         if($pages) { 
-            displayPages($project);
+            Pgtp::PagesReport->new($project)->output();
         }
 
         if($abilityModes) {
-            displayAbilityModesOfPage($project,$abilityModes);
+            Pgtp::AbilityModesReportOfPage->new($project,$abilityModes)->output();
         }
 
         if($fieldsListOfPage) {
-            my $report = Pgtp::FieldsOfPageReport->new($project);
-            $report->setPageShortCaption($fieldsListOfPage);
-            $report->output();
+            Pgtp::FieldsOfPageReport->new($project,$fieldsListOfPage)->output();
         }
 
         if($mutation) {
