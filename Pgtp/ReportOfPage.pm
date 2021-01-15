@@ -5,14 +5,8 @@ use warnings;
 use utf8;
 use 5.010;
 use boolean;
-use FindBin;                
-use lib "$FindBin::RealBin/.";
-use Data::Printer;
-use Attribute::Abstract;
-use Term::Table;
 
 use Pgtp::Report;
-use Model::Project;
 
 our @ISA = qw(Pgtp::Report);
 

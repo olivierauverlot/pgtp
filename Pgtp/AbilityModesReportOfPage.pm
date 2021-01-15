@@ -5,13 +5,8 @@ use warnings;
 use utf8;
 use 5.010;
 use boolean;
-use FindBin;                
-use lib "$FindBin::RealBin/.";
-use Data::Printer;
-use Term::Table;
 
 use Pgtp::ReportOfPage;
-use Model::Project;
 
 # Displays the ability modes of the specified page
 

@@ -5,13 +5,8 @@ use warnings;
 use utf8;
 use 5.010;
 use boolean;
-use FindBin;                
-use lib "$FindBin::RealBin/.";
-use Data::Printer;
-use Term::Table;
 
 use Pgtp::ReportOfPage;
-use Model::Project;
 
 # Displays the columns of the specified page
 
@@ -23,6 +18,7 @@ sub new {
 
     $this->{header} = [ 'Fieldname', 'Caption', 'Can set NULL'];
     bless($this,$class);
+
     return $this;
 }
 
