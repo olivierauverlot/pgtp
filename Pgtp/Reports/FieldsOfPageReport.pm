@@ -16,7 +16,7 @@ sub new {
     my($class,$_project,$_pageShortCaption) = @_;
     my $this = $class->SUPER::new($_project,$_pageShortCaption);
 
-    $this->{header} = [ 'Fieldname', 'Caption', 'Can set NULL'];
+    $this->{header} = [ 'Fieldname', 'Caption', 'Enabled', 'Can set NULL'];
     bless($this,$class);
 
     return $this;
@@ -31,6 +31,7 @@ sub extractData() {
         push @row,(
             $c->getFieldName(),
             $c->getCaption(),
+            $c->isEnabled() ? 'Yes' : 'No',
             $c->canSetNull() ? 'Yes' : 'No'
         );
         push @{ $this->{rows} }, \@row;
