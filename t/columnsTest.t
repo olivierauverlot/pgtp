@@ -27,7 +27,7 @@ my $xml = <<XML;
             </ViewProperties>
             <EditProperties type="textBox" maxLength="0"/>
           </ColumnPresentation>
-          <ColumnPresentation fieldName="sigle" caption="Sigle" showColumnFilter="false" canSetNull="true" selectedFilterOperators="1589247">
+          <ColumnPresentation fieldName="sigle" caption="Sigle" enabled="false" showColumnFilter="false" canSetNull="true" selectedFilterOperators="1589247">
             <ViewProperties type="text" maxLength="75"/>
             <EditProperties type="textArea" columnCount="50" rowCount="8" placeholder=""/>
           </ColumnPresentation>
@@ -40,6 +40,68 @@ my $xml = <<XML;
             <EditProperties type="checkBox"/>
           </ColumnPresentation>
         </ColumnPresentations>
+        <Columns>
+          <List>
+            <Column fieldName="cle" visible="false"/>
+            <Column fieldName="sigle"/>
+            <Column fieldName="intitule"/>
+            <Column fieldName="visible"/>
+          </List>
+          <View>
+            <Column fieldName="cle" visible="false"/>
+            <Column fieldName="sigle"/>
+            <Column fieldName="intitule"/>
+            <Column fieldName="visible"/>
+          </View>
+          <Edit>
+            <Column fieldName="cle" visible="false"/>
+            <Column fieldName="sigle"/>
+            <Column fieldName="intitule"/>
+            <Column fieldName="visible"/>
+          </Edit>
+          <Insert>
+            <Column fieldName="cle" visible="false"/>
+            <Column fieldName="sigle"/>
+            <Column fieldName="intitule"/>
+            <Column fieldName="visible"/>
+          </Insert>
+          <QuickFilter>
+            <Column fieldName="cle" visible="false"/>
+            <Column fieldName="sigle"/>
+            <Column fieldName="intitule"/>
+            <Column fieldName="visible"/>
+          </QuickFilter>
+          <FilterBuilder>
+            <Column fieldName="cle" visible="false"/>
+            <Column fieldName="sigle"/>
+            <Column fieldName="intitule"/>
+            <Column fieldName="visible"/>
+          </FilterBuilder>
+          <Print>
+            <Column fieldName="cle" visible="false"/>
+            <Column fieldName="sigle"/>
+            <Column fieldName="intitule"/>
+            <Column fieldName="visible"/>
+          </Print>
+          <Export>
+            <Column fieldName="cle" visible="false"/>
+            <Column fieldName="sigle"/>
+            <Column fieldName="intitule"/>
+            <Column fieldName="visible"/>
+          </Export>
+          <Compare>
+            <Column fieldName="cle" visible="false"/>
+            <Column fieldName="sigle"/>
+            <Column fieldName="intitule"/>
+            <Column fieldName="visible"/>
+          </Compare>
+          <MultiEdit>
+            <Column fieldName="cle" visible="false"/>
+            <Column fieldName="sigle"/>
+            <Column fieldName="intitule"/>
+            <Column fieldName="visible"/>
+          </MultiEdit>
+        </Columns>
       </Page>
     </Pages>
   </Presentation>
@@ -71,10 +133,13 @@ ok(defined($colcle),"'cle' column is defined");
 is($colcle->getFieldName(),'cle',"'cle' is the fieldname of the 'cle' column");
 is($colcle->getCaption(),'Cle',"'Cle' is the caption of the 'cle' column");
 is($colcle->canSetNull(),false,"'cle' column can't be NULL");
+is($colcle->isEnabled(),true,"'cle' is enabled");
 
 my $colsigle = $columnsContainer->getColumnWithFieldName('sigle');
 ok(defined($colsigle),"'sigle' column is defined");
 ok($colsigle->canSetNull(),"'sigle' column can be NULL");
+is($colsigle->isEnabled(),false,"'sigle' is not enabled");
+
 
 
 

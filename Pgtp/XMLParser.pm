@@ -136,6 +136,9 @@ sub extractPage {
         if($colNode->findvalue('@canSetNull') ne '') {
             $column->notNull();
         }
+        if($colNode->findvalue('@enabled') ne '') {
+            $column->notEnabled();
+        }
         $columns->addColumn($column);
     }
     $page->setColumnContainer($columns);
