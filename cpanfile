@@ -6,3 +6,4 @@ requires "DBI" , ">= 1.643";
 requires "XML::LibXML" , ">= 2.0206";
 requires "Term::Table" , ">= 0.015";
 requires "Attribute::Abstract" , "0";
+requires "Class::Inspector", ">= 1.36";

@@ -136,6 +136,16 @@ DISTRIBUTIONS
       perl 5.006
       strict 0
       warnings 0
+  Class-Inspector-1.36
+    pathname: P/PL/PLICEASE/Class-Inspector-1.36.tar.gz
+    provides:
+      Class::Inspector 1.36
+      Class::Inspector::Functions 1.36
+    requirements:
+      ExtUtils::MakeMaker 0
+      File::Spec 0.80
+      base 0
+      perl 5.008
   Clone-PP-1.08
     pathname: N/NE/NEILB/Clone-PP-1.08.tar.gz
     provides:
