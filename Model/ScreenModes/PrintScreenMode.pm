@@ -21,7 +21,7 @@ sub new {
 
 sub getTagName {
     my ($class) = @_;
-    return 'Printer';
+    return 'Print';
 }
 
 sub isPrintScreenMode {

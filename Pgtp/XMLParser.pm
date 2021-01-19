@@ -24,6 +24,9 @@ use Model::Abilities::CopyAbilityMode;
 use Model::Abilities::DeleteAbilityMode;
 use Model::Abilities::DeleteSelectedAbilityMode;
 
+use Model::ScreenModes::Factory;
+use Model::ScreenModes::ScreenMode;
+
 use Model::ColumnsContainer;
 use Model::Column;
 
@@ -129,18 +132,34 @@ sub extractPage {
 
     # set the columns
     # -------------------------------------------
+    my $factory = Model::ScreenModes::Factory->new();
+
     my $columns = Model::ColumnsContainer->new($page);
     
     foreach my $colNode (@{ $node->findnodes('ColumnPresentations/ColumnPresentation') } ) {
-        my $column = Model::Column->new($colNode->findvalue('@fieldName'),$colNode->findvalue('@caption'));
+        my $fieldName = $colNode->findvalue('@fieldName');
+
+        my $column = Model::Column->new($fieldName,$colNode->findvalue('@caption'));
         if($colNode->findvalue('@canSetNull') ne '') {
             $column->notNull();
         }
         if($colNode->findvalue('@enabled') ne '') {
             $column->notEnabled();
         }
+        
+        # set the visibility of the column in screen modes
+        my $modeSearchPath = 'Columns/*/Column[@fieldName=\'' . $fieldName . '\']';
+        foreach my $colModeNode (@{ $node->findnodes($modeSearchPath) } ) {
+            my $mode = $factory->createFromTag( $colModeNode->parentNode->nodeName );
+            if($colModeNode->findvalue('@visible') ne '') {
+                $mode->notVisible();
+            }
+            $column->addScreenMode($mode);
+        }
         $columns->addColumn($column);
     }
+
+    # columns are added to the page
     $page->setColumnContainer($columns);
 
     # the current page is added to the model

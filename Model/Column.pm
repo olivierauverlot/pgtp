@@ -14,18 +14,7 @@ sub new {
         caption =>  $_caption,
         canSetNull => false,
         enabled => true,
-        modes => {
-            'List' => false,
-            'View' => false,
-            'Edit' => false,
-            'Insert' => false,
-            'QuickFilter' => false,
-            'FilterBuilder' => false,
-            'Print' => false,
-            'Export' => false,
-            'Compare' => false,
-            'MultiEdit' => false
-        }
+        screenModes => [ ]
     };
 
     bless($this,$class);
@@ -63,27 +52,21 @@ sub notEnabled {
 }
 
 
-# setter & getter to know if a column is used in a mode (List, View, etc.)
-sub usedInMode {
-    my ($this,$mode) = @_;
-    $this->{modes}->{$mode} = true;
+# setter, getter and method to know if a column is visible in a mode (List, View, etc.)
+sub addScreenMode {
+    my ($this,$aScreenMode) = @_;
+    push @{ $this->{screenModes} } , $aScreenMode;
 }
 
-sub isUsedInMode {
-    my ($this,$mode) = @_;
-    return $this->{modes}->{$mode};
+sub getScreenModes {
+    my ($this) = @_;
+    return @{ $this->{screenModes} };
 }
 
-=pod
-        list => false,
-        view => false,
-        edit => false,
-        insert => false,
-        quickFilter => false,
-        filterBuilder => false,
-        print => false,
-        export => false,
-        compare => false,
-        multiEdit => false
-=cut
+sub isVisibleInScreenMode {
+    my ($this,$_screenModeTagName) = @_;
+
+   return grep ( { ($_->getTagName() eq $_screenModeTagName) && $_->isVisible() } $this->getScreenModes() );
+}
+
 1;

@@ -7,6 +7,8 @@ use Data::Printer;
 
 use Pgtp::XMLParser;
 use Model::Project;
+use Model::ScreenModes::ViewScreenMode;
+use Model::ScreenModes::ListScreenMode;
 
 my $xml = <<XML;
 <Project version="20.5.0.4" edition="pro">
@@ -92,7 +94,7 @@ my $xml = <<XML;
           <Compare>
             <Column fieldName="cle" visible="false"/>
             <Column fieldName="sigle"/>
-            <Column fieldName="intitule"/>
+            <Column fieldName="intitule" visible="false"/>
             <Column fieldName="visible"/>
           </Compare>
           <MultiEdit>
@@ -139,6 +141,13 @@ my $colsigle = $columnsContainer->getColumnWithFieldName('sigle');
 ok(defined($colsigle),"'sigle' column is defined");
 ok($colsigle->canSetNull(),"'sigle' column can be NULL");
 is($colsigle->isEnabled(),false,"'sigle' is not enabled");
+
+my $colIntitule = $columnsContainer->getColumnWithFieldName('intitule');
+
+is( $colcle->isVisibleInScreenMode( Model::ScreenModes::ViewScreenMode->getTagName() ) , false, "'cle' is not visible in View screen");
+ok ( $colIntitule->isVisibleInScreenMode( Model::ScreenModes::ListScreenMode->getTagName() ) , "'intitule' is visible in List screen");
+is( $colcle->isVisibleInScreenMode( Model::ScreenModes::CompareScreenMode->getTagName() ) , false, "'intitule' is not visible in View screen");
+
 
 
 
