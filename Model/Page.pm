@@ -10,13 +10,13 @@ use boolean;
 use Model::AbilityModes;
 
 sub new {
-    my($class,$_fileName,$_datasourceName,$_shortCaption,$_caption,$_detailsPage) = @_;
+    my($class,$_fileName,$_datasourceName,$_shortCaption,$_caption,$_isDetailsPage) = @_;
     my $this = { 
         fileName => $_fileName,
         datasourceName => $_datasourceName,
         shortCaption => $_shortCaption,
         caption => $_caption,
-        detailsPage => $_detailsPage,
+        isDetailsPage => $_isDetailsPage,
         masterPage => undef,
         detailsPages => [ ],
         abilityModesContainer => undef,
@@ -39,7 +39,7 @@ sub isQueryPage {
 
 sub isDetailsPage {
     my($this) = @_;
-    return $this->{detailsPage};
+    return $this->{isDetailsPage};
 }
 
 sub setMasterPage {
