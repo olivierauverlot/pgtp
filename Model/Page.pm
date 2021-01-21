@@ -10,10 +10,10 @@ use boolean;
 use Model::AbilityModes;
 
 sub new {
-    my($class,$_fileName,$_datasourceName,$_shortCaption,$_caption,$_isDetailsPage) = @_;
+    my($class,$_fileName,$_datasource,$_shortCaption,$_caption,$_isDetailsPage) = @_;
     my $this = { 
         fileName => $_fileName,
-        datasourceName => $_datasourceName,
+        datasource => $_datasource,
         shortCaption => $_shortCaption,
         caption => $_caption,
         isDetailsPage => $_isDetailsPage,
@@ -57,9 +57,14 @@ sub getFileName {
     return $this->{fileName};
 }
 
+sub getDataSource {
+    my($this) = @_;
+    return $this->{datasource};
+}
+
 sub getDatasourceName {
     my($this) = @_;
-    return $this->{datasourceName};
+    return $this->{datasource}->getName();
 }
 
 sub getShortCaption {

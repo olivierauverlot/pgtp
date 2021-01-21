@@ -106,9 +106,9 @@ sub extractPage {
     my $page;
 
     if( $node->findvalue('@queryName') eq '' ) {
-        $page = Model::TablePage->new($node->findvalue('@fileName'),$node->findvalue('@tableName'),$node->findvalue('@shortCaption'),$node->findvalue('@caption'),$isDetails);
+        $page = Model::TablePage->new($node->findvalue('@fileName'),$this->{project}->getDatasourceFromName($node->findvalue('@tableName')),$node->findvalue('@shortCaption'),$node->findvalue('@caption'),$isDetails);
     } else {
-        $page = Model::QueryPage->new($node->findvalue('@fileName'),$node->findvalue('@queryName'),$node->findvalue('@shortCaption'),$node->findvalue('@caption'),$isDetails);
+        $page = Model::QueryPage->new($node->findvalue('@fileName'),$this->{project}->getDatasourceFromName($node->findvalue('@queryName')),$node->findvalue('@shortCaption'),$node->findvalue('@caption'),$isDetails);
     }
 
     # set the abilities
