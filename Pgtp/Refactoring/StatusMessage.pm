@@ -1,4 +1,4 @@
-package StatusMessage;
+package Pgtp::Refactoring::StatusMessage;
 
 use strict;
 use warnings;
@@ -21,6 +21,11 @@ sub new {
 sub isError {
     my ($this) = @_;
     return $this->{error};
+}
+
+sub isOk {
+    my ($this) = @_;
+    return not $this->{error};
 }
 
 sub getMessage {
