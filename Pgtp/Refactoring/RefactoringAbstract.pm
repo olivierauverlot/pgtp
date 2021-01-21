@@ -9,13 +9,23 @@ use boolean;
 use Attribute::Abstract;
 
 sub new {
-    my($class) = @_;
-    my $this = { };
+    my($class,$_project,$_dom) = @_;
+    my $this = { 
+        project => $_project,
+        dom => $_dom,
+        xmlData => ''
+    };
 
     bless($this,$class);
     return $this;
 }
 
-sub aMethod: Abstract;
+# Apply the refactoring
+# return true if refactoring is done
+sub apply: Abstract;
 
+sub getXMLData {
+    my ($this) = @_;
+    return $this->{xmlData};
+}
 1;

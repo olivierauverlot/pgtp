@@ -115,7 +115,7 @@ my $parser = Pgtp::XMLParser->new($dom,$project);
 
 # the primary key (simple and composite) must be passed in an array 
 # non numeric fields must be surrounded by simple quotes
-my $mutation = Pgtp::Refactoring::RefactoringMutation->new( $dom,'public.bap','bap' );
+my $mutation = Pgtp::Refactoring::RefactoringMutation->new( $project,$dom,'public.bap','bap' );
 $mutation->addPrimaryKey('cle');
 $mutation->addPrimaryKey("'sigle'");
 my $result = $mutation->apply();
