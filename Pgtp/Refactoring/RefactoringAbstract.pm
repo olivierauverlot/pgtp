@@ -8,6 +8,8 @@ use Data::Printer;
 use boolean;
 use Attribute::Abstract;
 
+use Pgtp::Refactoring::StatusMessage;
+
 sub new {
     my($class,$_project,$_dom) = @_;
     my $this = { 
@@ -20,12 +22,13 @@ sub new {
     return $this;
 }
 
-# Apply the refactoring
-# return true if refactoring is done
-sub apply: Abstract;
-
 sub getXMLData {
     my ($this) = @_;
     return $this->{xmlData};
 }
+
+# Apply the refactoring
+# return true if refactoring is done
+sub apply: Abstract;
+
 1;

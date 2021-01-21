@@ -112,12 +112,12 @@ sub getPages {
     return @{ $this->{pages} };
 }
 
-sub getTablePage {
+sub getTablePages {
     my($this) = @_;
     return (grep { $_->isTablePage() } $this->getPages() );
 }
 
-sub getQueryPage {
+sub getQueryPages {
     my($this) = @_;
     return (grep { $_->isQueryPage() } $this->getPages() );
 }

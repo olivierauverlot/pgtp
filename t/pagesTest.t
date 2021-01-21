@@ -61,8 +61,8 @@ my @pages = $project->getPages();
 
 is( scalar @pages,4, 'Four pages defined');
 
-is( scalar $project->getTablePage(),2, 'Two pages defined from a table');
-is( scalar $project->getQueryPage(),2, 'Two page defined from a query');
+is( scalar $project->getTablePages(),2, 'Two pages defined from a table');
+is( scalar $project->getQueryPages(),2, 'Two page defined from a query');
 
 my $padm = $project->getPageFromShortCaption("Demandes d'admission");
 is ( (defined $padm && $padm->getShortCaption() eq "Demandes d'admission"), true, "'Demandes d'admission' page is defined");

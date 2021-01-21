@@ -14,6 +14,14 @@ my $xml = <<XML;
   <ConnectionOptions>
   </ConnectionOptions>
   <DataSources>
+    <DataSource name="demandes" type="query">
+      <PrimaryKeyFields>
+        <Field name="cle"/>
+      </PrimaryKeyFields>
+      <SelectStatement>
+SELECT * from table
+      </SelectStatement>
+    </DataSource>
     <DataSource name="public.bap"/>
   </DataSources>
   <Presentation disableMagicQuotesRuntime="false" showEnvironmentVariables="false" showExecutedQueries="false" showPHPErrorsAndWarnings="false">
@@ -113,6 +121,22 @@ my $project = Model::Project->new();
 my $dom = XML::LibXML->load_xml( string => $xml );
 my $parser = Pgtp::XMLParser->new($dom,$project);
 
+# datasource can't be a request
+my $merr1 = Pgtp::Refactoring::RefactoringMutation->new( $project,$dom,'demandes','sqldemandes' );
+my $r1 = $merr1->apply();
+ok($r1->isError,$r1->getMessage());
+
+# datasource names can't be the same
+my $merr2 = Pgtp::Refactoring::RefactoringMutation->new( $project,$dom,'public.bap','public.bap' );
+my $r2 = $merr2->apply();
+ok($r2->isError,$r2->getMessage());
+
+# the query datasource name can't be already used in the project
+my $merr3 = Pgtp::Refactoring::RefactoringMutation->new( $project,$dom,'public.bap','demandes' );
+my $r3 = $merr3->apply();
+ok($r3->isError,$r3->getMessage());
+
+# launch a full mutation process
 # the primary key (simple and composite) must be passed in an array 
 # non numeric fields must be surrounded by simple quotes
 my $mutation = Pgtp::Refactoring::RefactoringMutation->new( $project,$dom,'public.bap','bap' );
@@ -120,7 +144,7 @@ $mutation->addPrimaryKey('cle');
 $mutation->addPrimaryKey("'sigle'");
 my $result = $mutation->apply();
 
-ok($result,"Mutation process done");
+ok($result->isOk,"Mutation process done");
 
 my $data = $mutation->getXMLData();
 
@@ -132,7 +156,6 @@ my $newparser = Pgtp::XMLParser->new($newdom,$newproject);
 my @datasources = $newproject->getDatasources();
 
 is( scalar @datasources,1, 'One datasource defined');
-
 is( scalar $project->getQueryDatasources(),1, 'One query defined');
 
 my $bap = $project->getDatasourceFromName('bap');
