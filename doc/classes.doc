@@ -1,0 +1,77 @@
+@startuml
+
+@startuml
+
+title Pgtp - Class Diagram
+
+class Model::Project {
+    -version
+    -edition
+    -connectionsOptions
+    -dataSources
+    -pages
+    -defaultPageAbilityModes
+    +setVersion()
+    +getVersion()
+    +getEdition()
+    +isProfessionalEdition()
+    +setConnectionOptions()
+    +getConnectionOptions()
+    +addDatasource()
+    +getDatasources()
+    +getTableDatasources()
+    +getQueryDatasources()
+    +getDatasourceFromName()
+    +addPage()
+    +getPages()
+    +getTablePages()
+    +getQueryPages()
+    +getPageFromShortCaption()
+    +getDefaultPageAbilityModes()
+    +hasDefaultPageAbilityModes()
+    +setDefaultPageAbilityModes()
+}
+
+class Model::AbilityModes {
+    -parent
+    -abilityModes
+    +addAbilityMode()
+    +getAbilityModes()
+    +hasViewAbilityMode()
+    +hasInsertAbilityMode()
+    +hasCopyAbilityMode()
+    +hasInsertAbilityModes()
+    +hasEditAbilityMode()
+    +hasMultiEditAbilityMode()
+    +hasEditAbilitieModes()
+    +hasDeleteAbilityMode()
+    +hasDeleteSelectedAbilityMode()
+    +hasDeleteAbilityModes()    
+}
+
+Model::Project *-- Model::AbilityModes
+
+class Model::Abilities::AbilityMode {
+    -defaultValue
+    -value
+    -DISABLED
+    -SEPARATED_PAGE
+    -INLINE_MODE
+    -MODAL
+    -ON
+    isViewAbilityMode()
+    isViewAbilityMode()
+    isMultiEditAbilityMode()
+    isInsertAbilityMode()
+    isCopyAbilityMode()
+    isDeleteAbilityMode()
+    isDeleteSelectedAbilityMode()
+    getValue()
+    setValue()
+    isDisabled()
+    isEnabled()
+}
+
+Model::AbilityModes o-- Model::Abilities::AbilityMode
+
+@enduml
