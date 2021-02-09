@@ -68,7 +68,7 @@ sub hasMultiEditAbilityMode {
 
 sub hasEditAbilitieModes {
     my($this) = @_;
-    return grep { ( $_->isEditAbilityMode() or $_->isMultiEditAbilityMode() )  and $_->isEnabled() }  @{ $this->getAbilityModes } ;
+    return grep { ( $_->isEditAbilityMode() or $_->isMultiEditAbilityMode() ) and $_->isEnabled() }  @{ $this->getAbilityModes } ;
 }
 
 sub hasDeleteAbilityMode {

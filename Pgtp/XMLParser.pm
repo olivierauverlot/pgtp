@@ -41,6 +41,7 @@ sub new {
     $this->extractProjectVersion();
     $this->extractConnectionOptions();
     $this->extractDatasources();
+    $this->extractDefaultPageProperties();
     $this->extractPages();
     return $this;
 }
@@ -86,6 +87,25 @@ sub extractDatasources {
             }
         }
         $this->{project}->addDatasource($datasource);
+    }
+}
+
+sub extractDefaultPageProperties {
+    my($this) = @_;
+
+    my @nodes = $this->{dom}->findnodes( '/Project/DefaultPageProperties' );
+
+    if(@nodes) {
+        my $abilityModes = Model::AbilityModes->new( $this->{project} );
+        $abilityModes->addAbilityMode( Model::Abilities::ViewAbilityMode->new( $nodes[0]->findvalue('@viewAbilityMode') ) );
+        $abilityModes->addAbilityMode( Model::Abilities::EditAbilityMode->new( $nodes[0]->findvalue('@editAbilityMode') ) );
+        $abilityModes->addAbilityMode( Model::Abilities::MultiEditAbilityMode->new( $nodes[0]->findvalue('@multiEditAbility') ) );
+        $abilityModes->addAbilityMode( Model::Abilities::InsertAbilityMode->new( $nodes[0]->findvalue('@insertAbilityMode') ) );
+        $abilityModes->addAbilityMode( Model::Abilities::CopyAbilityMode->new( $nodes[0]->findvalue('@copyAbilityMode') ) );
+        $abilityModes->addAbilityMode( Model::Abilities::DeleteAbilityMode->new( $nodes[0]->findvalue('@deleteAbilityMode') ) );
+        $abilityModes->addAbilityMode( Model::Abilities::DeleteSelectedAbilityMode->new( $nodes[0]->findvalue('@deleteSelectedAbilityMode') ) );
+
+        $this->{project}->setDefaultPageAbilityModes($abilityModes);
     }
 }
 

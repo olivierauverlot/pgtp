@@ -17,7 +17,8 @@ sub new {
         edition => '',
         connectionOptions => undef,
         dataSources => [ ],
-        pages => [ ]
+        pages => [ ],
+        defaultPageAbilityModes => undef
     };
 
     bless($this,$class);
@@ -131,6 +132,24 @@ sub getPageFromShortCaption {
     } else {
         return undef;
     }
+}
+
+# ----------------------------------------------
+# Default Page Properties
+# ----------------------------------------------
+sub getDefaultPageAbilityModes {
+    my($this) = @_;
+    return $this->{defaultPageAbilityModes};
+}
+
+sub hasDefaultPageAbilityModes {
+    my ($this) = @_;
+    return defined($this->{defaultPageAbilityModes});
+}
+
+sub setDefaultPageAbilityModes {
+     my($this,$abilities) = @_;
+     $this->{defaultPageAbilityModes} = $abilities;
 }
 
 return 1;

@@ -61,7 +61,7 @@ sub apply {
     }
 
     if( $this->{tableDataSourceName} eq $this->{queryDataSourceName} ) {
-        return Pgtp::Refactoring::StatusMessage->new(true,"datasource names can't be the same");
+        return Pgtp::Refactoring::StatusMessage->new(true,"Datasource names can't be the same");
     }
 
     if($this->{project}->getDatasourceFromName($this->{queryDataSourceName})) {
@@ -71,7 +71,7 @@ sub apply {
     # extract the columns list from the first page that uses the table datasource
     my $ret = $this->initColumnsContainerWith( $this->{tableDataSourceName} );
     if(!$ret) {
-        return Pgtp::Refactoring::StatusMessage->new(true,"column list cannot be initialized");
+        return Pgtp::Refactoring::StatusMessage->new(true,"Column list cannot be initialized");
     }
 
     p ( $this->{columnsContainer} );
