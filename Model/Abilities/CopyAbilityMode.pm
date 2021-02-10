@@ -20,6 +20,11 @@ sub new {
     return $this;
 }
 
+sub getAbilityName {
+    my ($this) = @_;
+    return 'Copy';
+}
+
 sub isCopyAbilityMode {
     my ($this) = @_;
     return true;

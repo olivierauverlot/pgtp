@@ -12,6 +12,7 @@ use Model::AbilityModes;
 sub new {
     my($class,$_fileName,$_datasource,$_shortCaption,$_caption,$_isDetailsPage) = @_;
     my $this = { 
+        project => undef,
         fileName => $_fileName,
         datasource => $_datasource,
         shortCaption => $_shortCaption,
@@ -40,6 +41,16 @@ sub isQueryPage {
 sub isDetailsPage {
     my($this) = @_;
     return $this->{isDetailsPage};
+}
+
+sub getProject {
+    my ($this) = @_;
+    return $this->{project};
+}
+
+sub setProject {
+    my ($this,$aProject) = @_;
+    $this->{project} = $aProject;
 }
 
 sub setMasterPage {

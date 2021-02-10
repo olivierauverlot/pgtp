@@ -16,6 +16,7 @@ use Model::TablePage;
 use Model::Querypage;
 
 use Model::AbilityModes;
+use Model::DefaultAbilityModes;
 use Model::Abilities::ViewAbilityMode;
 use Model::Abilities::EditAbilityMode;
 use Model::Abilities::MultiEditAbilityMode;
@@ -96,7 +97,7 @@ sub extractDefaultPageProperties {
     my @nodes = $this->{dom}->findnodes( '/Project/DefaultPageProperties' );
 
     if(@nodes) {
-        my $abilityModes = Model::AbilityModes->new( $this->{project} );
+        my $abilityModes = Model::DefaultAbilityModes->new( $this->{project} );
         $abilityModes->addAbilityMode( Model::Abilities::ViewAbilityMode->new( $nodes[0]->findvalue('@viewAbilityMode') ) );
         $abilityModes->addAbilityMode( Model::Abilities::EditAbilityMode->new( $nodes[0]->findvalue('@editAbilityMode') ) );
         $abilityModes->addAbilityMode( Model::Abilities::MultiEditAbilityMode->new( $nodes[0]->findvalue('@multiEditAbility') ) );

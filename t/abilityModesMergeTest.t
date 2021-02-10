@@ -18,7 +18,7 @@ my $xml = <<XML;
         <Pages>
             <Page type="table" tableName="public.bap" fileName="rcd" caption="rcd" shortCaption="rcd" insertAbilityMode="1" viewAbilityMode="1" editAbilityMode="0" deleteAbilityMode="1" deleteSelectedAbilityMode="0">
             </Page>
-            <Page type="table" tableName="public.bap" fileName="rd" caption="rd" shortCaption="rd" insertAbilityMode="0" viewAbilityMode="1" editAbilityMode="0" deleteAbilityMode="1" deleteSelectedAbilityMode="0">
+            <Page type="table" tableName="public.bap" fileName="rd" caption="rd" shortCaption="rd" insertAbilityMode="0" copyAbilityMode="0" viewAbilityMode="1" editAbilityMode="0" deleteSelectedAbilityMode="0">
             </Page>
         </Pages>
     </Presentation>
@@ -36,10 +36,9 @@ ok($rcd->hasAbilityModesContainer(),"Page 'rcd' has ability modes container");
 
 my $rcdAbilities = $rcd->getAbilityModesContainer();
 ok($rcdAbilities->hasInsertAbilityModes(),"Insert abilities");
+
 is($rcdAbilities->hasEditAbilitieModes(),false,'No edit abilities');
 ok($rcdAbilities->hasDeleteAbilityModes(),'Delete abilities');
-
-Pgtp::Reports::AbilityModesReportOfPage->new($project,'rcd')->output();
 
 my $rd = $project->getPageFromShortCaption("rd");
 ok($rd->hasAbilityModesContainer(),"Page 'rd' has ability modes container");
@@ -49,6 +48,5 @@ is($rdAbilities->hasInsertAbilityModes(),false,"No insert abilities");
 is($rdAbilities->hasEditAbilitieModes(),false,'No edit abilities');
 ok($rdAbilities->hasDeleteAbilityModes(),'Delete abilities');
 
-
-
 # Pgtp::Reports::AbilityModesReportOfPage->new($project,'rd')->output();
+

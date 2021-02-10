@@ -20,6 +20,11 @@ sub new {
     return $this;
 }
 
+sub getAbilityName {
+    my ($this) = @_;
+    return 'MultiEdit';
+}
+
 sub isMultiEditAbilityMode {
     my ($this) = @_;
     return true;

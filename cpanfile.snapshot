@@ -373,95 +373,6 @@ DISTRIBUTIONS
       File::Basename 0
       File::Spec 0
       perl 5.006
-  Font-TTF-1.06
-    pathname: B/BH/BHALLISSY/Font-TTF-1.06.tar.gz
-    provides:
-      Font::TTF 1.06
-      Font::TTF::AATKern undef
-      Font::TTF::AATutils undef
-      Font::TTF::Anchor undef
-      Font::TTF::Bsln undef
-      Font::TTF::Cmap undef
-      Font::TTF::Coverage undef
-      Font::TTF::Cvt_ 0.0001
-      Font::TTF::DSIG undef
-      Font::TTF::Delta undef
-      Font::TTF::Dumper undef
-      Font::TTF::EBDT undef
-      Font::TTF::EBLC undef
-      Font::TTF::Fdsc undef
-      Font::TTF::Feat undef
-      Font::TTF::Features::Cvar undef
-      Font::TTF::Features::Size undef
-      Font::TTF::Features::Sset undef
-      Font::TTF::Fmtx undef
-      Font::TTF::Font 0.39
-      Font::TTF::Fpgm 0.0001
-      Font::TTF::GDEF undef
-      Font::TTF::GPOS undef
-      Font::TTF::GSUB undef
-      Font::TTF::Glat undef
-      Font::TTF::Gloc undef
-      Font::TTF::Glyf undef
-      Font::TTF::Glyph undef
-      Font::TTF::GrFeat undef
-      Font::TTF::Hdmx undef
-      Font::TTF::Head undef
-      Font::TTF::Hhea undef
-      Font::TTF::Hmtx undef
-      Font::TTF::Kern undef
-      Font::TTF::Kern::ClassArray undef
-      Font::TTF::Kern::CompactClassArray undef
-      Font::TTF::Kern::OrderedList undef
-      Font::TTF::Kern::StateTable undef
-      Font::TTF::Kern::Subtable undef
-      Font::TTF::LTSH undef
-      Font::TTF::Loca undef
-      Font::TTF::Maxp undef
-      Font::TTF::Mort undef
-      Font::TTF::Mort::Chain undef
-      Font::TTF::Mort::Contextual undef
-      Font::TTF::Mort::Insertion undef
-      Font::TTF::Mort::Ligature undef
-      Font::TTF::Mort::Noncontextual undef
-      Font::TTF::Mort::Rearrangement undef
-      Font::TTF::Mort::Subtable undef
-      Font::TTF::Name 1.1
-      Font::TTF::OS_2 undef
-      Font::TTF::OTTags undef
-      Font::TTF::OldCmap undef
-      Font::TTF::OldMort undef
-      Font::TTF::PCLT undef
-      Font::TTF::PSNames undef
-      Font::TTF::Post 0.01
-      Font::TTF::Prep 0.0001
-      Font::TTF::Prop undef
-      Font::TTF::Segarr 0.0001
-      Font::TTF::Silf undef
-      Font::TTF::Sill undef
-      Font::TTF::Table 0.0001
-      Font::TTF::Ttc 0.0001
-      Font::TTF::Ttopen undef
-      Font::TTF::Utils 0.0001
-      Font::TTF::Vhea undef
-      Font::TTF::Vmtx undef
-      Font::TTF::Win32 undef
-      Font::TTF::Woff undef
-      Font::TTF::Woff::MetaData undef
-      Font::TTF::Woff::PrivateData undef
-      Font::TTF::XMLparse undef
-    requirements:
-      ExtUtils::MakeMaker 0
-      IO::String 0
-  Getopt-ArgvFile-1.11
-    pathname: J/JS/JSTENZEL/Getopt-ArgvFile-1.11.tar.gz
-    provides:
-      Getopt::ArgvFile 1.11
-    requirements:
-      ExtUtils::MakeMaker 0
-      Test::Harness 1.25
-      Test::More 0.11
-      Text::ParseWords 3.1
   Getopt-Long-2.52
     pathname: J/JV/JV/Getopt-Long-2.52.tar.gz
     provides:
@@ -471,12 +382,6 @@ DISTRIBUTIONS
     requirements:
       ExtUtils::MakeMaker 0
       Pod::Usage 1.14
-  IO-String-1.08
-    pathname: G/GA/GAAS/IO-String-1.08.tar.gz
-    provides:
-      IO::String 1.08
-    requirements:
-      ExtUtils::MakeMaker 0
   Importer-0.026
     pathname: E/EX/EXODIST/Importer-0.026.tar.gz
     provides:
@@ -552,118 +457,6 @@ DISTRIBUTIONS
       perl 5.006
       strict 0
       warnings 0
-  PDF-API2-2.038
-    pathname: S/SS/SSIMMS/PDF-API2-2.038.tar.gz
-    provides:
-      PDF::API2 2.038
-      PDF::API2::Annotation 2.038
-      PDF::API2::Basic::PDF::Array 2.038
-      PDF::API2::Basic::PDF::Bool 2.038
-      PDF::API2::Basic::PDF::Dict 2.038
-      PDF::API2::Basic::PDF::File 2.038
-      PDF::API2::Basic::PDF::Filter 2.038
-      PDF::API2::Basic::PDF::Filter::ASCII85Decode 2.038
-      PDF::API2::Basic::PDF::Filter::ASCIIHexDecode 2.038
-      PDF::API2::Basic::PDF::Filter::FlateDecode 2.038
-      PDF::API2::Basic::PDF::Filter::LZWDecode 2.038
-      PDF::API2::Basic::PDF::Filter::RunLengthDecode 2.038
-      PDF::API2::Basic::PDF::Literal 2.038
-      PDF::API2::Basic::PDF::Name 2.038
-      PDF::API2::Basic::PDF::Null 2.038
-      PDF::API2::Basic::PDF::Number 2.038
-      PDF::API2::Basic::PDF::Objind 2.038
-      PDF::API2::Basic::PDF::Page 2.038
-      PDF::API2::Basic::PDF::Pages 2.038
-      PDF::API2::Basic::PDF::String 2.038
-      PDF::API2::Basic::PDF::Utils 2.038
-      PDF::API2::Content 2.038
-      PDF::API2::Content::Text 2.038
-      PDF::API2::Lite 2.038
-      PDF::API2::Matrix 2.038
-      PDF::API2::NamedDestination 2.038
-      PDF::API2::Outline 2.038
-      PDF::API2::Outlines 2.038
-      PDF::API2::Page 2.038
-      PDF::API2::Resource 2.038
-      PDF::API2::Resource::BaseFont 2.038
-      PDF::API2::Resource::CIDFont 2.038
-      PDF::API2::Resource::CIDFont::CJKFont 2.038
-      PDF::API2::Resource::CIDFont::TrueType 2.038
-      PDF::API2::Resource::CIDFont::TrueType::FontFile 2.038
-      PDF::API2::Resource::ColorSpace 2.038
-      PDF::API2::Resource::ColorSpace::DeviceN 2.038
-      PDF::API2::Resource::ColorSpace::Indexed 2.038
-      PDF::API2::Resource::ColorSpace::Indexed::ACTFile 2.038
-      PDF::API2::Resource::ColorSpace::Indexed::Hue 2.038
-      PDF::API2::Resource::ColorSpace::Indexed::WebColor 2.038
-      PDF::API2::Resource::ColorSpace::Separation 2.038
-      PDF::API2::Resource::Colors 2.038
-      PDF::API2::Resource::ExtGState 2.038
-      PDF::API2::Resource::Font 2.038
-      PDF::API2::Resource::Font::BdFont 2.038
-      PDF::API2::Resource::Font::CoreFont 2.038
-      PDF::API2::Resource::Font::CoreFont::bankgothic 2.038
-      PDF::API2::Resource::Font::CoreFont::courier 2.038
-      PDF::API2::Resource::Font::CoreFont::courierbold 2.038
-      PDF::API2::Resource::Font::CoreFont::courierboldoblique 2.038
-      PDF::API2::Resource::Font::CoreFont::courieroblique 2.038
-      PDF::API2::Resource::Font::CoreFont::georgia 2.038
-      PDF::API2::Resource::Font::CoreFont::georgiabold 2.038
-      PDF::API2::Resource::Font::CoreFont::georgiabolditalic 2.038
-      PDF::API2::Resource::Font::CoreFont::georgiaitalic 2.038
-      PDF::API2::Resource::Font::CoreFont::helvetica 2.038
-      PDF::API2::Resource::Font::CoreFont::helveticabold 2.038
-      PDF::API2::Resource::Font::CoreFont::helveticaboldoblique 2.038
-      PDF::API2::Resource::Font::CoreFont::helveticaoblique 2.038
-      PDF::API2::Resource::Font::CoreFont::symbol 2.038
-      PDF::API2::Resource::Font::CoreFont::timesbold 2.038
-      PDF::API2::Resource::Font::CoreFont::timesbolditalic 2.038
-      PDF::API2::Resource::Font::CoreFont::timesitalic 2.038
-      PDF::API2::Resource::Font::CoreFont::timesroman 2.038
-      PDF::API2::Resource::Font::CoreFont::trebuchet 2.038
-      PDF::API2::Resource::Font::CoreFont::trebuchetbold 2.038
-      PDF::API2::Resource::Font::CoreFont::trebuchetbolditalic 2.038
-      PDF::API2::Resource::Font::CoreFont::trebuchetitalic 2.038
-      PDF::API2::Resource::Font::CoreFont::verdana 2.038
-      PDF::API2::Resource::Font::CoreFont::verdanabold 2.038
-      PDF::API2::Resource::Font::CoreFont::verdanabolditalic 2.038
-      PDF::API2::Resource::Font::CoreFont::verdanaitalic 2.038
-      PDF::API2::Resource::Font::CoreFont::webdings 2.038
-      PDF::API2::Resource::Font::CoreFont::wingdings 2.038
-      PDF::API2::Resource::Font::CoreFont::zapfdingbats 2.038
-      PDF::API2::Resource::Font::Postscript 2.038
-      PDF::API2::Resource::Font::SynFont 2.038
-      PDF::API2::Resource::Glyphs 2.038
-      PDF::API2::Resource::PaperSizes 2.038
-      PDF::API2::Resource::Pattern 2.038
-      PDF::API2::Resource::Shading 2.038
-      PDF::API2::Resource::UniFont 2.038
-      PDF::API2::Resource::XObject 2.038
-      PDF::API2::Resource::XObject::Form 2.038
-      PDF::API2::Resource::XObject::Form::BarCode 2.038
-      PDF::API2::Resource::XObject::Form::BarCode::codabar 2.038
-      PDF::API2::Resource::XObject::Form::BarCode::code128 2.038
-      PDF::API2::Resource::XObject::Form::BarCode::code3of9 2.038
-      PDF::API2::Resource::XObject::Form::BarCode::ean13 2.038
-      PDF::API2::Resource::XObject::Form::BarCode::int2of5 2.038
-      PDF::API2::Resource::XObject::Form::Hybrid 2.038
-      PDF::API2::Resource::XObject::Image 2.038
-      PDF::API2::Resource::XObject::Image::GD 2.038
-      PDF::API2::Resource::XObject::Image::GIF 2.038
-      PDF::API2::Resource::XObject::Image::JPEG 2.038
-      PDF::API2::Resource::XObject::Image::PNG 2.038
-      PDF::API2::Resource::XObject::Image::PNM 2.038
-      PDF::API2::Resource::XObject::Image::TIFF 2.038
-      PDF::API2::Resource::XObject::Image::TIFF::File 2.038
-      PDF::API2::UniWrap 2.038
-      PDF::API2::Util 2.038
-      PDF::API2::Win32 2.038
-    requirements:
-      Compress::Zlib 1.0
-      ExtUtils::MakeMaker 0
-      Font::TTF 0
-      Win32::TieRegistry 0
-      perl 5.010000
   Package-Stash-0.39
     pathname: E/ET/ETHER/Package-Stash-0.39.tar.gz
     provides:
@@ -728,28 +521,6 @@ DISTRIBUTIONS
       ExtUtils::MakeMaker 6.56
       Test::More 0.94
       perl 5.006000
-  Pod-Parser-1.63
-    pathname: M/MA/MAREKR/Pod-Parser-1.63.tar.gz
-    provides:
-      Pod::Cache 1.63
-      Pod::Cache::Item 1.63
-      Pod::Find 1.63
-      Pod::Hyperlink 1.63
-      Pod::InputObjects 1.63
-      Pod::InputSource 1.63
-      Pod::InteriorSequence 1.63
-      Pod::List 1.63
-      Pod::Paragraph 1.63
-      Pod::ParseTree 1.63
-      Pod::ParseUtils 1.63
-      Pod::Parser 1.63
-      Pod::PlainText 2.07
-      Pod::Select 1.63
-    requirements:
-      Cwd 0
-      ExtUtils::MakeMaker 0
-      File::Basename 0
-      Test::More 0.6
   Sort-Naturally-1.03
     pathname: B/BI/BINGOS/Sort-Naturally-1.03.tar.gz
     provides:
@@ -808,32 +579,6 @@ DISTRIBUTIONS
     requirements:
       ExtUtils::MakeMaker 0
       perl 5.006
-  Win32-TieRegistry-0.30
-    pathname: C/CH/CHORNY/Win32-TieRegistry-0.30.tar.gz
-    provides:
-      Tie::Registry 0.15
-      Win32::TieRegistry 0.30
-    requirements:
-      Carp 0
-      ExtUtils::MakeMaker 0
-      Tie::Hash 0
-      Win32::WinError 0
-      Win32API::Registry 0.33
-      perl 5.006
-  Win32-WinError-0.04
-    pathname: J/JD/JDB/Win32-WinError-0.04.tar.gz
-    provides:
-      Win32::WinError 0.04
-    requirements:
-      ExtUtils::MakeMaker 0
-      perl 5.006
-  Win32API-Registry-0.33
-    pathname: C/CH/CHORNY/Win32API-Registry-0.33.tar.gz
-    provides:
-      Win32API::Registry 0.33
-    requirements:
-      ExtUtils::MakeMaker 0
-      perl 5.005
   XML-LibXML-2.0206
     pathname: S/SH/SHLOMIF/XML-LibXML-2.0206.tar.gz
     provides:
@@ -944,15 +689,3 @@ DISTRIBUTIONS
     requirements:
       ExtUtils::MakeMaker 0
       perl 5.008001
-  pod2pdf-0.42
-    pathname: J/JO/JONALLEN/pod2pdf-0.42.tar.gz
-    provides:
-      App::pod2pdf 0.42
-      pod2pdf undef
-    requirements:
-      ExtUtils::MakeMaker 0
-      Getopt::ArgvFile 0
-      PDF::API2 0.6
-      Pod::Escapes 0
-      Pod::ParseLink 0
-      Pod::Parser 0

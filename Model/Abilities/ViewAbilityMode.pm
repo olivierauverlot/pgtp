@@ -20,6 +20,11 @@ sub new {
     return $this;
 }
 
+sub getAbilityName {
+    my ($this) = @_;
+    return 'View';
+}
+
 sub isViewAbilityMode {
     my ($this) = @_;
     return true;

@@ -26,14 +26,35 @@ sub new {
     return $this;
 }
 
+sub setParent {
+    my ($this,$parent) = @_;
+    $this->{parent} = $parent;
+}
+
+sub getParent {
+    my ($this) = @_;
+    return $this->{parent};
+}
+
 sub addAbilityMode {
     my($this,$aAbilityMode) = @_;
+    $aAbilityMode->setParent($this);
     push @{ $this->{abilityModes} } ,$aAbilityMode;
 }
 
 sub getAbilityModes {
     my($this) = @_;
     return $this->{abilityModes};
+}
+
+sub isAbilityModes {
+    my($this) = @_;
+    return true;
+}
+
+sub isDefaultAbilityModes {
+    my($this) = @_;
+    return false;
 }
 
 sub hasViewAbilityMode {
@@ -84,6 +105,20 @@ sub hasDeleteSelectedAbilityMode {
 sub hasDeleteAbilityModes {
     my($this) = @_;
     return grep { ( $_->isDeleteAbilityMode() or $_->isDeleteSelectedAbilityMode() )  and $_->isEnabled() }  @{  $this->getAbilityModes } ;
+}
+
+# resolve the default value of an page ability
+# to do that, I ask the value the default ability through the DefaultAbilityModes class.
+sub getDefaultPageAbilityValueFor {
+    my ($this,$ability) = @_;
+    # what is the page of the abilities container ?
+    my $page = $this->getParent();
+
+    # I must get the default page ability modes of the project
+    my $defaultPageAbilityModes = $page->getProject()->getDefaultPageAbilityModes();
+    
+    # and now, I return the default value of the ability 
+    return $defaultPageAbilityModes->getAbilityValueFor($ability->getAbilityName());
 }
 
 1;

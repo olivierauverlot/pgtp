@@ -105,6 +105,7 @@ sub getDatasourceFromName {
 # ----------------------------------------------
 sub addPage {
     my($this,$aPage) = @_;
+    $aPage->setProject($this);
     push @{ $this->{pages} },$aPage;
 }
 

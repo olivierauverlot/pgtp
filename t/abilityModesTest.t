@@ -32,7 +32,7 @@ is($abilities->hasViewAbilityMode(),false,"View ability Off");
 is($abilities->hasInsertAbilityMode(),false,"Insert ability Off");
 ok($abilities->hasCopyAbilityMode(),'Copy ability On');
 ok($abilities->hasEditAbilityMode(),'Edit ability On');
-ok($abilities->hasMultiEditAbilityMode,'MultiEdit ability On');
+is($abilities->hasMultiEditAbilityMode,false,'MultiEdit ability On');
 ok($abilities->hasDeleteAbilityMode,'Delete Ability On');
 ok($abilities->hasDeleteSelectedAbilityMode,'Delete Selected Ability On');
 

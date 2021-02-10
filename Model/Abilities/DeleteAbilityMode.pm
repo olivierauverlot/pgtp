@@ -20,6 +20,11 @@ sub new {
     return $this;
 }
 
+sub getAbilityName {
+    my ($this) = @_;
+    return 'Delete';
+}
+
 sub isDeleteAbilityMode {
     my ($this) = @_;
     return true;

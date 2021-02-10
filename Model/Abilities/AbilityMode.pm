@@ -6,10 +6,12 @@ use utf8;
 use 5.010;
 use Data::Printer;
 use boolean;
+use Attribute::Abstract;
 
 sub new {
     my($class,$_value) = @_;
     my $this = { 
+        parent => undef,
         defaultValue => undef,
         value => undef,
         DISABLED => 0,
@@ -26,6 +28,18 @@ sub new {
     }
 
     return $this;
+}
+
+sub getAbilityName: Abstract;
+
+sub setParent {
+    my ($this,$parent) = @_;
+    $this->{parent} = $parent;
+}
+
+sub getParent {
+    my ($this) = @_;
+    return $this->{parent};
 }
 
 sub isViewAbilityMode {
@@ -68,7 +82,13 @@ sub getValue {
     if( defined($this->{value}) ) {
         return $this->{value};
     } else {
-        return $this->{defaultValue};
+        if($this->getParent()->isDefaultAbilityModes()) {
+            # if the abilitie is a default page ability, we must return the default value
+            return $this->{defaultValue};
+        } else {
+            # if the abilitie is a page ability, we must get the defaut page ability value
+            return $this->getParent()->getDefaultPageAbilityValueFor($this);
+        }
     }
 }
 
