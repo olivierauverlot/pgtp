@@ -19,12 +19,8 @@ sub new {
     return $this;
 }
 
-# UPDATE public.table SET sigle=:sigle,intitule=:intitule,visible=:visible WHERE cle=:OLD_cle AND sigle=:OLD_sigle;
-
 sub getSQLStatement {
     my ($this) = @_;
-    my $affectations = '';
-
     my @affectations =  map { "$_=:$_"} $this->getAllColumnsWithoutSerialsPK();
     my @conditions = map { "$_=:OLD_$_" } $this->getAllPk();
     
