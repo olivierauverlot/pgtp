@@ -40,7 +40,7 @@ is(scalar(@serialPK),1,"Get PK that have serial datatype");
 my @allColumns = $sqlSelectStatement->getAllColumnNames();
 is(scalar(@allColumns),4,'Get all columns');
 
-ok($sqlSelectStatement->columnsSeparatedByCommas(\@allColumns) eq 'cle,sigle,intitule,visible',"Columns are separated byCommas");
+ok($sqlSelectStatement->columnsSeparatedBy(\@allColumns,',') eq 'cle,sigle,intitule,visible',"Columns are separated byCommas");
 ok($sqlSelectStatement->isSerial('*cle'),"'cle' is a serial");
 is($sqlSelectStatement->isSerial('sigle'),false,"'sigle' is not a serial");
 

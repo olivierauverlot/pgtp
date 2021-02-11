@@ -25,9 +25,10 @@ sub getSQLStatement {
     my ($this) = @_;
     my $affectations = '';
 
-    my @conditions = map { "$_=OLD_$_" } $this->getAllPk();
+    my @affectations =  map { "$_=:$_"} $this->getAllColumnsWithoutSerialsPK();
+    my @conditions = map { "$_=:OLD_$_" } $this->getAllPk();
     
-    return 'UPDATE ' . $this->{table} . ' SET ' . $affectations . ' WHERE ' . $this->columnsSeparatedByCommas(\@conditions) . ';';
+    return 'UPDATE ' . $this->{table} . ' SET ' . $this->columnsSeparatedBy(\@affectations,',') . ' WHERE ' . $this->columnsSeparatedBy(\@conditions,' AND ') . ';';
 }
 
 1;

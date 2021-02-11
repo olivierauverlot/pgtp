@@ -61,9 +61,9 @@ sub getAllColumnsWithoutSerialsPK {
     return @{ $diff->added() };
 }
 
-sub columnsSeparatedByCommas {
-    my ($this,$columns) = @_;
-    return join( ',', @{ $columns } );
+sub columnsSeparatedBy {
+    my ($this,$columns,$separator) = @_;
+    return join( $separator, @{ $columns } );
 }
 
 1;

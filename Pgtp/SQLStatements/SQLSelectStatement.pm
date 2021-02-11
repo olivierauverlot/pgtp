@@ -22,7 +22,7 @@ sub new {
 sub getSQLStatement {
     my ($this) = @_;
     my @columns = $this->getAllColumnNames();
-    return 'SELECT ' . $this->columnsSeparatedByCommas(\@columns) . ' FROM ' . $this->{table} . ';';
+    return 'SELECT ' . $this->columnsSeparatedBy(\@columns,',') . ' FROM ' . $this->{table} . ';';
 }
 
 1;
