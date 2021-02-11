@@ -1,5 +1,12 @@
 # carton snapshot format: version 1.0
 DISTRIBUTIONS
+  Algorithm-Diff-1.201
+    pathname: R/RJ/RJBS/Algorithm-Diff-1.201.tar.gz
+    provides:
+      Algorithm::Diff 1.201
+      Algorithm::Diff::_impl 1.201
+    requirements:
+      ExtUtils::MakeMaker 0
   Alien-Build-2.37
     pathname: P/PL/PLICEASE/Alien-Build-2.37.tar.gz
     provides:
@@ -107,6 +114,18 @@ DISTRIBUTIONS
       ExtUtils::CBuilder 0
       ExtUtils::MakeMaker 6.52
       perl 5.006
+  Array-Diff-0.09
+    pathname: N/NE/NEILB/Array-Diff-0.09.tar.gz
+    provides:
+      Array::Diff 0.09
+    requirements:
+      Algorithm::Diff 1.19
+      Class::Accessor::Fast 0
+      ExtUtils::MakeMaker 0
+      base 0
+      perl 5.008
+      strict 0
+      warnings 0
   Attribute-Util-1.07
     pathname: D/DA/DANKOGAI/Attribute-Util-1.07.tar.gz
     provides:
@@ -136,6 +155,15 @@ DISTRIBUTIONS
       perl 5.006
       strict 0
       warnings 0
+  Class-Accessor-0.51
+    pathname: K/KA/KASEI/Class-Accessor-0.51.tar.gz
+    provides:
+      Class::Accessor 0.51
+      Class::Accessor::Fast 0.51
+      Class::Accessor::Faster 0.51
+    requirements:
+      ExtUtils::MakeMaker 0
+      base 1.01
   Class-Inspector-1.36
     pathname: P/PL/PLICEASE/Class-Inspector-1.36.tar.gz
     provides:

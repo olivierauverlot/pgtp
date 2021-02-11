@@ -56,14 +56,17 @@ sub initColumnsContainerWith {
 sub apply {
     my ($this) = @_;
 
+    # datasource can't be a table
     if(not $this->{project}->getDatasourceFromName($this->{tableDataSourceName})->isTableDatasource()) {
         return Pgtp::Refactoring::StatusMessage->new(true,'The datasource is not a table');
     }
 
+    # Datasource names can't be the same
     if( $this->{tableDataSourceName} eq $this->{queryDataSourceName} ) {
         return Pgtp::Refactoring::StatusMessage->new(true,"Datasource names can't be the same");
     }
 
+    # Query datasource name can't be already used in the project
     if($this->{project}->getDatasourceFromName($this->{queryDataSourceName})) {
         return Pgtp::Refactoring::StatusMessage->new(true,"Query datasource name can't be already used in the project");
     }
