@@ -21,7 +21,8 @@ sub new {
 
 sub getSQLStatement {
     my ($this) = @_;
-    return '';
+    my @conditions = map { "$_=:$_" } $this->getAllPk();
+    return 'DELETE FROM ' . $this->{table} . ' WHERE ' . $this->columnsSeparatedBy(\@conditions,' AND ') . ';';
 }
 
 1;

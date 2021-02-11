@@ -50,7 +50,4 @@ is(scalar(@columnsNotSerial),3,"Get all columns that aren't primary key with ser
 is($sqlSelectStatement->getSQLStatement(),'SELECT cle,sigle,intitule,visible FROM public.table;','Select statement');
 is($sqlInsertStatement->getSQLStatement(),'INSERT INTO public.table(sigle,intitule,visible) VALUES(:sigle,:intitule,:visible);','Insert statement');
 is($sqlUpdateStatement->getSQLStatement(),'UPDATE public.table SET sigle=:sigle,intitule=:intitule,visible=:visible WHERE cle=:OLD_cle AND sigle=:OLD_sigle;','Update statement');
-
-=pod
-is($sqlUpdateStatement->getSQLStatement(),'DELETE FROM public.table WHERE cle=:cle AND sigle=:sigle;','Delete statement');
-=cut
+is($sqlDeleteStatement->getSQLStatement(),'DELETE FROM public.table WHERE cle=:cle AND sigle=:sigle;','Delete statement');
