@@ -140,8 +140,8 @@ ok($r3->isError,$r3->getMessage());
 # the primary key (simple and composite) must be passed in an array 
 # non numeric fields must be surrounded by simple quotes
 my $mutation = Pgtp::Refactoring::RefactoringMutation->new( $project,$dom,'public.bap','sqlbap' );
-$mutation->addPrimaryKey('cle');
-$mutation->addPrimaryKey("'sigle'");
+$mutation->addPrimaryKey('*cle');
+$mutation->addPrimaryKey("sigle"); 
 my $result = $mutation->apply();
 
 ok($result->isOk,"Mutation process done");

@@ -23,7 +23,6 @@ sub getSQLStatement {
     my ($this) = @_;
     my @columns = $this->getAllColumnsWithoutSerialsPK();
     my @values = map { ":$_"} $this->getAllColumnsWithoutSerialsPK();
-
     return 'INSERT INTO ' . $this->{table} . '(' . $this->columnsSeparatedBy(\@columns,',') . ') VALUES(' . $this->columnsSeparatedBy(\@values,',') . ');';
 }
 
